@@ -1,10 +1,11 @@
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, ThemeProvider, createTheme, Button } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, ThemeProvider, createTheme, Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Menu as MenuIcon, AccountCircle, ChevronLeft, Home, Campaign } from "@mui/icons-material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TourAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorNav, setAnchorNav] = useState(false);
   const navigate = useNavigate();
 
   const handleOpenMenu = (event: any) => {
@@ -23,14 +24,66 @@ function TourAppBar() {
     },
   });
 
+  //mock
+  const ismobile = false;
+  const ispc = !ismobile;
+
   return (
     <ThemeProvider theme={Theme}>
-      <AppBar position="static" color="primary">
+      <AppBar position="sticky" color="primary">
+      <Drawer
+        anchor='left'
+        open={anchorNav}
+        onClose={() => setAnchorNav(false)}
+      >
+        <IconButton onClick={() => setAnchorNav(false)}>
+          <ChevronLeft />
+        </IconButton>
+        <Divider />
+        <List>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/home')}>
+              <ListItemIcon>
+                <Home />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/announcement')}>
+              <ListItemIcon>
+                <Campaign />
+              </ListItemIcon>
+              <ListItemText primary="Announcement" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Box>
-              <div>
-              <Button
+              {ismobile && <Box>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                  onClick={() => setAnchorNav(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Button
+                  size="large"
+                  aria-label="logo"
+                  onClick={() => navigate('/home')}
+                  color="inherit"
+                >
+                  <img src="applogo.png" alt="(HomeIcon)" width={"168.15"} height={"33.3"} />
+                </Button>
+              </Box>}
+              {ispc && <Box>
+                <Button
                   size="large"
                   aria-label="logo"
                   onClick={() => navigate('/home')}
@@ -74,7 +127,7 @@ function TourAppBar() {
                   <img src="BookingIcon.png" alt="(BookingIcon)" width={"33.3"} height={"33.3"} />
                   &nbsp;Booking
                 </Button>
-              </div>
+              </Box>}
             </Box> 
           </Typography>
           <IconButton
