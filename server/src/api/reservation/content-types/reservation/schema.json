@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "string",
+      "required": true
+    },
+    "trip_id": {
+      "type": "string"
+    },
+    "isPaid": {
+      "type": "boolean",
+      "required": true
+    }
+  }
+}
