@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "packagetours",
+  "info": {
+    "singularName": "packagetour",
+    "pluralName": "packagetours",
+    "displayName": "Packagetour"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tourname": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "price": {
+      "type": "integer",
+      "required": true
+    },
+    "current_reserve": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "max": 10
+    },
+    "hotelname": {
+      "type": "string",
+      "required": true
+    },
+    "hotellocation": {
+      "type": "text",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    }
+  }
+}
