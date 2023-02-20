@@ -1,30 +1,42 @@
-import { Box, TextField, InputAdornment } from "@mui/material";
+import { Box, TextField, InputAdornment, Grid } from "@mui/material";
 import { Search } from '@mui/icons-material';
 import AppBar from "../components/myAppBar";
 import { useEffect ,useState, ChangeEvent } from 'react';
 import ODT from '../models/ODT';
-import Repo from '../repositories'
+import { OneDayTripRepo, ODTFilter } from '../repositories/OneDayTripRepo'
 import '../App.css'
 
+import ODTCard from '../components/ODTCard'
 
-function  OnDaTr() {
-  const [ODT, setODT] = useState<ODT[]>([])
+function  OneDayTrip() {
+  const [OneDayTrip, setOneDayTrip] = useState<ODT[]>([])
   const [searchFilter, setSearchFilter] = useState('')
 
+  const onUpdateOnedaytrip = (OneDayTrip: ODT) => {
+    setOneDayTrip(prevOneDayTrip => 
+      prevOneDayTrip.map(item => item.id === OneDayTrip.id ? OneDayTrip : item))}
 
   const fetchODT = async () => {
-    const result = await Repo.userResult.getAll()
-    if(result){
-      setODT(result)
+    const filter: ODTFilter = {
+      keyword: searchFilter,
+    };
+    const repo = new OneDayTripRepo();
+    const result = await repo.getAll(filter);
+    if (result) {
+      setOneDayTrip(result);
     }
-  }
+  };
 
   const handleChangeSearchFilter = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchFilter(event.target.value)
   }
 
+  const filteredTrips = OneDayTrip.filter(trip =>
+    trip.tourname.toLowerCase().includes(searchFilter.toLowerCase())
+  );
+  
   useEffect(() => {
-  fetchODT()
+    fetchODT()
   },[searchFilter])
 
   return (
@@ -50,19 +62,20 @@ function  OnDaTr() {
       />
       </Box>
       <div>
-        <h1>Test</h1>
-        {ODT.map(ODT => (
-          <div key={ODT.id}>
-            <p>ID : {ODT.id}</p>
-            <p>Tourname : {ODT.tourname}</p>
-            <p>Price : {ODT.price}</p>
-            <p>picture : {ODT.picture}</p>
-             <img src={ODT.picture} width={100}></img>
-          </div>
+        <Grid 
+          container 
+          spacing={{ xs: 2, md: 3 }} 
+          columns={{ xs: 2, sm: 8, md: 12, lg: 12, xl: 10}}
+        >
+        {filteredTrips.map((ODT, index) => (
+          <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
+            <ODTCard onedaytrip={ODT} onUpdateOnedaytrip={onUpdateOnedaytrip}/>
+          </Grid>
         ))}
+        </Grid>
       </div>
     </Box>
   );
 };
 
-export default OnDaTr;
+export default OneDayTrip;

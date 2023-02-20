@@ -1,7 +1,7 @@
 import { OneDayTripRepo } from "./OneDayTripRepo";
 
 const repositories = {
-    userResult: new OneDayTripRepo()
+    ODTRepo: new OneDayTripRepo()
 }
 
 export default repositories
