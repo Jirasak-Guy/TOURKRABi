@@ -45,7 +45,15 @@ function  OneDayTrip() {
       <Box>
         <img src="OneDayTrip.png" width={"100%"}/>
       </Box>
-      <Box sx={{ '& > :not(style)': { m: 2, ml:5 ,minWidth:'120px' ,width:'30%'} }} >
+      <Box 
+      sx={{ '& > :not(style)': 
+      { m: 2, ml:5 ,minWidth:'120px' ,width:'30%'},
+      '@media(max-width:450px)':
+        {'& > :not(style)': {
+          width: '75%',
+        }}
+      }} 
+      >
         <TextField 
         className='SearchFilter' 
         label="Search" 
@@ -65,7 +73,7 @@ function  OneDayTrip() {
         <Grid 
           container 
           spacing={{ xs: 2, md: 3 }} 
-          columns={{ xs: 2, sm: 8, md: 12, lg: 12, xl: 10}}
+          columns={{ xs: 1, sm: 2, md: 12, lg: 12, xl: 6}}
         >
         {filteredTrips.map((ODT, index) => (
           <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
