@@ -1,12 +1,13 @@
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, ThemeProvider, createTheme, Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Menu as MenuIcon, AccountCircle, ChevronLeft, Home, Campaign } from "@mui/icons-material";
-import { useState } from "react";
+import { Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TourAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorNav, setAnchorNav] = useState(false);
   const navigate = useNavigate();
+  const [windowwidth, setWindowwidth] = useState(window.innerWidth);
 
   const handleOpenMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +17,8 @@ function TourAppBar() {
     setAnchorEl(null);
   };
 
+  const isPC = (windowwidth >= 830) ? true : false
+
   const Theme = createTheme({
     palette: {
       primary: {
@@ -24,65 +27,73 @@ function TourAppBar() {
     },
   });
 
-  //mock
-  const ismobile = false;
-  const ispc = !ismobile;
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowwidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={Theme}>
       <AppBar position="sticky" color="primary">
       <Drawer
+        PaperProps={{
+          sx:{
+            backgroundColor:'rgba(1, 148, 243, .9)',
+            color:'white'
+        }
+        }}
         anchor='left'
         open={anchorNav}
         onClose={() => setAnchorNav(false)}
       >
-        <IconButton onClick={() => setAnchorNav(false)}>
-          <ChevronLeft />
-        </IconButton>
         <Divider />
         <List>
           <ListItem>
             <ListItemButton onClick={() => navigate('/home')}>
               <ListItemIcon>
-                <Home />
+                <img src='HomeIcon.png' width={'30'} />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={() => navigate('/announcement')}>
+            <ListItemButton onClick={() => navigate('/onedaytrip')}>
               <ListItemIcon>
-                <Campaign />
+                <img src='OneDayTripIcon.png' width={'30'} />
               </ListItemIcon>
-              <ListItemText primary="Announcement" />
+              <ListItemText primary="One Day Trip" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/package')}>
+              <ListItemIcon>
+                <img src='PackageIcon.png' width={'30'} />
+              </ListItemIcon>
+              <ListItemText primary="Package" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/booking')}>
+              <ListItemIcon>
+                <img src='BookingIcon.png' width={'30'} />
+              </ListItemIcon>
+              <ListItemText primary="Booking" />
             </ListItemButton>
           </ListItem>
         </List>
       </Drawer>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Box>
-              {ismobile && <Box>
-                <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  sx={{ mr: 2 }}
-                  onClick={() => setAnchorNav(true)}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Button
-                  size="large"
-                  aria-label="logo"
-                  onClick={() => navigate('/home')}
-                  color="inherit"
-                >
-                  <img src="applogo.png" alt="(HomeIcon)" width={"168.15"} height={"33.3"} />
-                </Button>
-              </Box>}
-              {ispc && <Box>
+            <Box> 
+              {isPC ? 
+              <Box>
                 <Button
                   size="large"
                   aria-label="logo"
@@ -126,6 +137,27 @@ function TourAppBar() {
                 >
                   <img src="BookingIcon.png" alt="(BookingIcon)" width={"33.3"} height={"33.3"} />
                   &nbsp;Booking
+                </Button>
+              </Box>
+              :
+              <Box>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                  onClick={() => setAnchorNav(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Button
+                  size="large"
+                  aria-label="logo"
+                  onClick={() => navigate('/home')}
+                  color="inherit"
+                >
+                  <img src="applogo.png" alt="(HomeIcon)" width={"168.15"} height={"33.3"} />
                 </Button>
               </Box>}
             </Box> 
