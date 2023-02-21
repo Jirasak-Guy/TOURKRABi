@@ -29,9 +29,19 @@
       "required": true,
       "max": 10
     },
-    "review": {
-      "type": "text",
-      "required": true
+    "review_one_day_trips": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review-one-day-trip.review-one-day-trip",
+      "mappedBy": "onedaytrip"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }
