@@ -13,6 +13,8 @@ interface Prop {
 function ODTCard(props: Prop) {
     const onedaytrip = props.onedaytrip;
 
+    const maxbooking = (onedaytrip.customer >= onedaytrip.maxcustomer) ? true : false
+
     return (
         <Box>
             <Card sx={{ maxWidth: 345 }}>
@@ -35,9 +37,22 @@ function ODTCard(props: Prop) {
                     </CardContent>
                 </CardActionArea>
                 <CardActions sx={{justifyContent:'center'}}>
-                    <Box sx={{ backgroundColor:'#F0298A',borderRadius:'50px' }}>
-                        <Button sx={{color: 'white'}}> จอง </Button>
+                    {maxbooking ? 
+                    <Box sx={{ backgroundColor:'#FF0000',borderRadius:'50px' }}>
+                        <Button sx={{color:'white', fontSize:'20px', borderRadius:'30px'}}>
+                            <Box sx={{backgroundColor: '#FF0000', height: '20px', width: '30px', }}/>
+                            เต็ม
+                            <Box sx={{backgroundColor: '#FF0000', height: '20px', width: '30px', }}/>
+                        </Button>
                     </Box>
+                    :
+                    <Box sx={{ backgroundColor:'#F0298A',borderRadius:'50px' }}>
+                        <Button sx={{color:'white', fontSize:'20px', borderRadius:'30px'}}>
+                            <Box sx={{backgroundColor: '#F0298A', height: '20px', width: '30px', }}/>
+                            จอง &nbsp;{onedaytrip.customer}/{onedaytrip.maxcustomer}&nbsp;
+                            <img src='people.png' width={'30'} height={'30'} />
+                        </Button>
+                    </Box>}
                 </CardActions>
             </Card>
         </Box>
