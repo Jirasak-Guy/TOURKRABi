@@ -1,6 +1,6 @@
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, ThemeProvider, createTheme, Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function TourAppBar() {
@@ -56,9 +56,9 @@ function TourAppBar() {
         <Divider />
         <List>
           <ListItem>
-            <ListItemButton onClick={() => navigate('/home')}>
+            <ListItemButton onClick={() => navigate('/')}>
               <ListItemIcon>
-                <img src='HomeIcon.png' width={'30'} />
+                <img src='../HomeIcon.png' width={'30'} />
               </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItemButton>
@@ -66,7 +66,7 @@ function TourAppBar() {
           <ListItem>
             <ListItemButton onClick={() => navigate('/onedaytrip')}>
               <ListItemIcon>
-                <img src='OneDayTripIcon.png' width={'30'} />
+                <img src='../OneDayTripIcon.png' width={'30'} />
               </ListItemIcon>
               <ListItemText primary="One Day Trip" />
             </ListItemButton>
@@ -74,7 +74,7 @@ function TourAppBar() {
           <ListItem>
             <ListItemButton onClick={() => navigate('/package')}>
               <ListItemIcon>
-                <img src='PackageIcon.png' width={'30'} />
+                <img src='../PackageIcon.png' width={'30'} />
               </ListItemIcon>
               <ListItemText primary="Package" />
             </ListItemButton>
@@ -82,7 +82,7 @@ function TourAppBar() {
           <ListItem>
             <ListItemButton onClick={() => navigate('/booking')}>
               <ListItemIcon>
-                <img src='BookingIcon.png' width={'30'} />
+                <img src='../BookingIcon.png' width={'30'} />
               </ListItemIcon>
               <ListItemText primary="Booking" />
             </ListItemButton>
@@ -97,18 +97,18 @@ function TourAppBar() {
                 <Button
                   size="large"
                   aria-label="logo"
-                  onClick={() => navigate('/home')}
+                  onClick={() => navigate('/')}
                   color="inherit"
                 >
-                  <img src="applogo.png" alt="(HomeIcon)" width={"168.15"} height={"33.3"} />
+                  <img src="../applogo.png" alt="(AppIcon)" width={"168.15"} height={"33.3"} />
                 </Button>
                 <Button
                   size="large"
                   aria-label="Home Button"
-                  onClick={() => navigate('/home')}
+                  onClick={() => navigate('/')}
                   color="inherit"
                 >
-                  <img src="HomeIcon.png" alt="(HomeIcon)" width={"33.3"} height={"33.3"} />
+                  <img src="../HomeIcon.png" alt="(HomeIcon)" width={"33.3"} height={"33.3"} />
                   &nbsp;Home
                 </Button>
                 <Button
@@ -117,7 +117,7 @@ function TourAppBar() {
                   onClick={() => navigate('/onedaytrip')}
                   color="inherit"
                 >
-                  <img src="OneDayTripIcon.png" alt="(OneDayTripIcon)" width={"33.3"} height={"33.3"} />
+                  <img src="../OneDayTripIcon.png" alt="(OneDayTripIcon)" width={"33.3"} height={"33.3"} />
                   &nbsp;One Day Trip
                 </Button>
                 <Button
@@ -126,7 +126,7 @@ function TourAppBar() {
                   onClick={() => navigate('/package')}
                   color="inherit"
                 >
-                  <img src="PackageIcon.png" alt="(PackageIcon)" width={"33.3"} height={"33.3"} />
+                  <img src="../PackageIcon.png" alt="(PackageIcon)" width={"33.3"} height={"33.3"} />
                   &nbsp;Package
                 </Button>
                 <Button
@@ -135,7 +135,7 @@ function TourAppBar() {
                   onClick={() => navigate('/booking')}
                   color="inherit"
                 >
-                  <img src="BookingIcon.png" alt="(BookingIcon)" width={"33.3"} height={"33.3"} />
+                  <img src="../BookingIcon.png" alt="(BookingIcon)" width={"33.3"} height={"33.3"} />
                   &nbsp;Booking
                 </Button>
               </Box>
@@ -154,10 +154,10 @@ function TourAppBar() {
                 <Button
                   size="large"
                   aria-label="logo"
-                  onClick={() => navigate('/home')}
+                  onClick={() => navigate('/')}
                   color="inherit"
                 >
-                  <img src="applogo.png" alt="(HomeIcon)" width={"168.15"} height={"33.3"} />
+                  <img src="../applogo.png" alt="(AppIcon)" width={"134.52"} height={"26.64"} />
                 </Button>
               </Box>}
             </Box> 
