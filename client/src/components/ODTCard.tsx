@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import {CardActions, Typography, Button, CardMedia, CardContent, CardActionArea, CardHeader } from '@mui/material';
 import ODT from '../models/ODT';
 import { Box } from '@mui/system';
+import { useNavigate } from "react-router-dom";
 import '../App.css'
 
 interface Prop {
@@ -11,18 +12,19 @@ interface Prop {
     }
 
 function ODTCard(props: Prop) {
+    const navigate = useNavigate();
     const onedaytrip = props.onedaytrip;
 
     const maxbooking = (onedaytrip.customer >= onedaytrip.maxcustomer) ? true : false
 
     return (
         <Box>
-            <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
+            <Card>
+                <CardActionArea onClick={()=>navigate(`/onedaytrip/${onedaytrip.id}`)}>
                     <CardMedia
                         component="img"
                         alt={onedaytrip.picture}
-                        height="150"
+                        height="300"
                         image={onedaytrip.picture}
                     />
                     <CardContent>
