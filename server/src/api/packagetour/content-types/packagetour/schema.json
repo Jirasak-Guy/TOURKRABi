@@ -49,6 +49,10 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "review": {
+      "type": "text",
+      "required": true
     }
   }
 }

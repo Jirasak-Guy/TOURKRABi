@@ -28,6 +28,10 @@
       "type": "integer",
       "required": true,
       "max": 10
+    },
+    "review": {
+      "type": "text",
+      "required": true
     }
   }
 }
