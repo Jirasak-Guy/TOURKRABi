@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "review_one_day_trips",
+  "info": {
+    "singularName": "review-one-day-trip",
+    "pluralName": "review-one-day-trips",
+    "displayName": "ReviewOneDayTrip",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "review": {
+      "type": "text",
+      "required": true
+    },
+    "onedaytrip": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::onedaytrip.onedaytrip",
+      "inversedBy": "review_one_day_trips"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "review_one_day_trips"
+    }
+  }
+}
