@@ -50,9 +50,11 @@
         "images"
       ]
     },
-    "review": {
-      "type": "text",
-      "required": true
+    "review_packages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review-package.review-package",
+      "mappedBy": "packagetour"
     }
   }
 }

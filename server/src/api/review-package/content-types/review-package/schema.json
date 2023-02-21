@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "review_packages",
+  "info": {
+    "singularName": "review-package",
+    "pluralName": "review-packages",
+    "displayName": "ReviewPackage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "integer",
+      "required": true
+    },
+    "trip_id": {
+      "type": "integer",
+      "required": true
+    },
+    "review": {
+      "type": "text",
+      "required": true
+    },
+    "packagetour": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::packagetour.packagetour",
+      "inversedBy": "review_packages"
+    }
+  }
+}
