@@ -2,6 +2,8 @@ export default interface ODT{
     id: number
     tourname: string
     price: number
-    member: number
+    customer: number
+    maxcustomer: number
     picture: string
+    
   }
