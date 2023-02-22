@@ -50,6 +50,18 @@ function Home() {
                     </h2>
                 </a>
             </section>
+            <section id="section03" className="box3-container">
+                <div className="box3-background" />
+                <h1 className="box3-header-text">“ เลือกรูปแบบทัวร์ของคุณ ”</h1>
+                <div className="box3-image-container">
+                    <a href='#onedaytrip'>
+                        <div className="select-odt-image" />
+                    </a>
+                    <a href='#package'>
+                        <div className="select-package-image" />
+                    </a>
+                </div>
+            </section>
         </div >
     )
 };
