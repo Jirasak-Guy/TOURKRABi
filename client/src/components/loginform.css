@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.popup-layout-login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.popup-overlay-login {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
+.popup-container-login {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    height: 500px;
+    background-color: white;
+    padding: 20px;
+}
+
+.image-login {
+    width: 500px;
+    height: 80%;
+    background: url(/public/login_pic.png);
+    background-position: center;
+    background-size: cover;
+    filter: contrast(90%) brightness(80%);
+}
+
+.popup-container-login {
+    width: 500px;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-container-login {
+    align-items: center;
+    line-height: 250%;
+}
+
+.input-box-login {
+    border: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 1px;
+    padding-inline: 20px;
+    padding-inline-end: 20px;
+}
+
+.form-element-login {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.form-element-login label {
+    padding-left: 7px;
+    align-items: center;
+    justify-self: center;
+}
+
+.submit-button-login {
+    background-color: rgb(255, 105, 51);
+    border: none;
+    color: white;
+    font-size: medium;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 1px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.submit-button-login:hover {
+    background-color: darkslategray;
+}
+
+a {
+    color: rgb(255, 105, 51);
+}
