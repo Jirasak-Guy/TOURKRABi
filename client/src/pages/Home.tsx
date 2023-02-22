@@ -36,6 +36,20 @@ function Home() {
                 </div>
                 <a href="#section02" ><span></span><span></span><span></span></a>
             </section >
+            <section id='section02' className="box2-container">
+                <div className="box2-for-text-list">
+                    <div className="box2-text-list">
+                        <strong>อยากเที่ยวกระบี่ แต่ไม่รู้จะไปที่ไหน</strong>
+                        <strong>อยากเที่ยวกระบี่ แต่ไม่รู้จะไปยังไง</strong>
+                        <strong>อยากเที่ยวกระบี่ แต่ไม่อยากวางแผนเอง</strong>
+                    </div>
+                </div>
+                <a href='#section03' >
+                    <h2 className="box2-text">
+                        <span>ทางเรา &quot;TOURKRABi&quot; มีคำตอบให้</span>
+                    </h2>
+                </a>
+            </section>
         </div >
     )
 };

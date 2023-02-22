@@ -247,3 +247,54 @@ header nav ul li a:hover::after {
         opacity: 0;
     }
 }
+
+.box2-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.box2-for-text-list {
+    width: 80%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 100px;
+    background: url(/public/images/BoxBackgroud.png);
+    background-size: contain;
+    box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
+    background-position: center;
+    padding: 10px;
+}
+
+.box2-text-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 2;
+    font-size: 18px;
+    color: rgb(88, 88, 88);
+}
+
+.box2-text {
+    color: darkgreen;
+    font-weight: 800;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 50px;
+    transform: translate(-50%, -50%);
+    text-shadow:
+        0px 1px 3px rgb(209, 209, 209),
+        0px -1px 3px rgb(209, 209, 209),
+        1px 0px 3px rgb(209, 209, 209),
+        -1px 0px 3px rgb(209, 209, 209);
+}
