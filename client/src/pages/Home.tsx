@@ -129,6 +129,7 @@ function Home() {
                     <p>2023 TOURKRABi</p>
                 </div>
             </div>
+            <a href='#section01' onClick={handleSectionClick} className="scroll-to-top"><span></span></a>
         </div >
     )
 };
