@@ -1,9 +1,33 @@
+import { useEffect, useState } from 'react';
+
 import './Home.css';
 
 function Home() {
+
+    const [isFixed, setIsFixed] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const navbar = window.document.getElementById('navbar');
+            if (navbar && window.pageYOffset > navbar.offsetTop) {
+                setIsFixed(true);
+            } else {
+                setIsFixed(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const headerClassName = isFixed ? 'nav-bar-fixed' : 'nav-bar';
+
     return (
         <div className="page-container">
-            <header className="nav-bar">
+            <header id="navbar" className={headerClassName}>
                 <nav className="nav-box-left">
                     <ul className="menu-left">
                         <li><a href='#section01' >หน้าหลัก</a></li>
