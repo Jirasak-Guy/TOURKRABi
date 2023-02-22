@@ -2,9 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: FCOrbitRounded;
 }
 
+@font-face {
+    font-family: FCOrbitRounded;
+    src: url(../fonts/FCOrbitRounded.ttf);
+}
 .page-container {
     width: 100%;
     display: flex;
@@ -113,7 +117,7 @@ header nav ul li a {
     color: #dadada;
     text-decoration: none;
     position: relative;
-    font-weight: bolder;
+    font-family: FCOrbitRounded;
 }
 
 header nav ul li a::after {
@@ -297,7 +301,6 @@ header nav ul li a:hover::after {
 
 .box2-text {
     color: darkgreen;
-    font-weight: 800;
     align-items: center;
     justify-content: center;
     position: absolute;
