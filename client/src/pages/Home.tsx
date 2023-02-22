@@ -25,12 +25,48 @@ function Home() {
 
     const headerClassName = isFixed ? 'nav-bar-fixed' : 'nav-bar';
 
+    const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const section = document.querySelector(e.currentTarget.hash);
+        if (section) {
+            const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+            const start = window.pageYOffset;
+            const duration = 1000;
+            let startTime: number | null = null;
+
+            const animateScroll = (currentTime: number) => {
+                if (!startTime) {
+                    startTime = currentTime;
+                }
+
+                const timeElapsed = currentTime - startTime;
+                const scrollY = easeInOutCubic(timeElapsed, start, sectionTop - start, duration);
+                window.scrollTo(0, scrollY);
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animateScroll);
+                }
+            };
+
+            const easeInOutCubic = (t: number, b: number, c: number, d: number) => {
+                t /= d / 2;
+                if (t < 1) {
+                    return c / 2 * t * t * t + b;
+                }
+                t -= 2;
+                return c / 2 * (t * t * t + 2) + b;
+            };
+
+            requestAnimationFrame(animateScroll);
+        }
+    };
+
     return (
         <div className="page-container">
             <header id="navbar" className={headerClassName}>
                 <nav className="nav-box-left">
                     <ul className="menu-left">
-                        <li><a href='#section01' >หน้าหลัก</a></li>
+                        <li><a href='#section01' onClick={handleSectionClick}>หน้าหลัก</a></li>
                         <li>
                             <a href='#select' className='select'>แพ็คเกจ</a>
                             <div className="sub-menu">
@@ -58,7 +94,7 @@ function Home() {
                     <span className="intro-text1">ทัวร์กระบี่</span>
                     <span className="intro-text2">เรื่องทัวร์ไว้ใจเรา</span>
                 </div>
-                <a href="#section02" ><span></span><span></span><span></span></a>
+                <a href="#section02" onClick={handleSectionClick}><span></span><span></span><span></span></a>
             </section >
             <section id='section02' className="box2-container">
                 <div className="box2-for-text-list">
@@ -68,7 +104,7 @@ function Home() {
                         <strong>อยากเที่ยวกระบี่ แต่ไม่อยากวางแผนเอง</strong>
                     </div>
                 </div>
-                <a href='#section03' >
+                <a href='#section03' onClick={handleSectionClick}>
                     <h2 className="box2-text">
                         <span>ทางเรา &quot;TOURKRABi&quot; มีคำตอบให้</span>
                     </h2>
