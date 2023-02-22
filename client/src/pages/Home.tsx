@@ -11,6 +11,7 @@ function Home() {
                     <span className="intro-text1">ทัวร์กระบี่</span>
                     <span className="intro-text2">เรื่องทัวร์ไว้ใจเรา</span>
                 </div>
+                <a href="#section02" ><span></span><span></span><span></span></a>
             </section >
         </div>
     );
