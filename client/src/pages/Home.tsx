@@ -71,8 +71,8 @@ function Home() {
                             <a href='#select' className='select'>แพ็คเกจ</a>
                             <div className="sub-menu">
                                 <ul>
-                                    <li><a href='#onedaytrip'>One day trip</a></li>
-                                    <li><a href='#package'>แพ็คเกจพร้อมที่พัก</a></li>
+                                    <li><a href='/onedaytrip'>One day trip</a></li>
+                                    <li><a href='/packagetrip'>แพ็คเกจพร้อมที่พัก</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -114,10 +114,10 @@ function Home() {
                 <div className="box3-background" />
                 <h1 className="box3-header-text">“ เลือกรูปแบบทัวร์ของคุณ ”</h1>
                 <div className="box3-image-container">
-                    <a href='#onedaytrip'>
+                    <a href='/onedaytrip'>
                         <div className="select-odt-image" />
                     </a>
-                    <a href='#package'>
+                    <a href='/packagetrip'>
                         <div className="select-package-image" />
                     </a>
                 </div>
