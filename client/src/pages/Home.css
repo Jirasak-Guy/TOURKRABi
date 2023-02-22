@@ -298,3 +298,22 @@ header nav ul li a:hover::after {
         1px 0px 3px rgb(209, 209, 209),
         -1px 0px 3px rgb(209, 209, 209);
 }
+
+#section02 a {
+    text-decoration: none;
+}
+
+#section02 a::after {
+    content: '';
+    position: absolute;
+    background-color: darkgreen;
+    height: 3.5px;
+    width: 0;
+    bottom: 60px;
+    transform: translate(-50%, -50%);
+    transition: 0.3s;
+}
+
+#section02 a:hover::after {
+    width: 35%;
+}
