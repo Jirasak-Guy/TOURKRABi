@@ -1,9 +1,18 @@
-export default interface ODT{
-    id: number
+export default interface ODT {
+  id: number
+  attributes: {
     tourname: string
+    description: string
     price: number
-    customer: number
-    maxcustomer: number
-    picture: string
-    
+    current_reserve: number
+    max_reserve: number
+    image: {
+      data: {
+        id: number
+        attributes: {
+          url: string
+        }
+      }
+    }
   }
+}
