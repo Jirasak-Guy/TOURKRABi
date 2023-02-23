@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import LoginPopup from '../components/loginform';
+import SignupPopup from '../components/signupform';
 
 import './Home.css';
 
@@ -7,6 +8,7 @@ function Home() {
 
     const [isFixed, setIsFixed] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
+    const [showSignup, setShowSignup] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -71,6 +73,15 @@ function Home() {
         setShowLogin(false);
     };
 
+    const handleSignupClick = () => {
+        setShowSignup(true);
+    };
+
+    const handleCloseSignup = () => {
+        setShowSignup(false);
+    };
+
+
     return (
         <div className="page-container">
             <header id="navbar" className={headerClassName}>
@@ -93,7 +104,8 @@ function Home() {
                     <ul className="menu-right">
                         <li><a href='#login' onClick={handleLoginClick}>ลงชื่อเข้าใช้</a></li>
                         {showLogin && <LoginPopup onClose={handleCloseLogin} />}
-                        <li><a href='#register' >สมัครสมาชิก</a></li>
+                        <li><a href='#register' onClick={handleSignupClick}>สมัครสมาชิก</a></li>
+                        {showSignup && <SignupPopup onClose={handleCloseSignup} />}
                     </ul>
                 </nav>
             </header>
