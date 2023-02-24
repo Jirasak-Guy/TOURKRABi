@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
 }
 
 .popup-layout-login {
@@ -56,6 +55,7 @@
 .box-container-login {
     align-items: center;
     line-height: 250%;
+    width: 81%;
 }
 
 .input-box-login {
@@ -99,4 +99,8 @@
 
 a {
     color: rgb(255, 105, 51);
+}
+
+p {
+    font-size: 15px;
 }

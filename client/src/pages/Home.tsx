@@ -81,6 +81,15 @@ function Home() {
         setShowSignup(false);
     };
 
+    const handleSignupLinkClick = () => {
+        setShowLogin(false);
+        setShowSignup(true);
+    }
+
+    const handleLoginLinkClick = () => {
+        setShowLogin(true);
+        setShowSignup(false);
+    }
 
     return (
         <div className="page-container">
@@ -103,9 +112,9 @@ function Home() {
                 <nav className="nav-box-right">
                     <ul className="menu-right">
                         <li><a href='#login' onClick={handleLoginClick}>ลงชื่อเข้าใช้</a></li>
-                        {showLogin && <LoginPopup onClose={handleCloseLogin} />}
+                        {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
                         <li><a href='#register' onClick={handleSignupClick}>สมัครสมาชิก</a></li>
-                        {showSignup && <SignupPopup onClose={handleCloseSignup} />}
+                        {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
                     </ul>
                 </nav>
             </header>

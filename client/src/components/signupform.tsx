@@ -1,10 +1,40 @@
+import { useState } from 'react';
+import axios from 'axios';
+
 import './signupform.css';
 
-interface SignupPopupProps {
+export interface SignupPopupProps {
     onClose: () => void;
+    onLoginLinkClick: () => void;
 }
 
+const initialUser = { username: "", email: "", password: "" };
+
 function SignupPopup(props: SignupPopupProps) {
+
+    const [user, setUser] = useState(initialUser)
+
+    const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = target;
+        setUser((currentUser) => ({
+            ...currentUser,
+            [name]: value,
+        }));
+    }
+
+    const handleSignup = async () => {
+        const url = 'http://localhost:1338/api/auth/local/register'
+        try {
+            if (user.username && user.password && user.email) {
+                const res = await axios.post(url, user)
+                if (res) {
+                    setUser(initialUser)
+                }
+            }
+        } catch (error: any) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="popup-layout-sigup">
@@ -15,18 +45,18 @@ function SignupPopup(props: SignupPopupProps) {
                     <h2>สมัครสมาชิก</h2>
                     <div className="username-box-sigup">
                         <h4>ชื่อผู้ใช้</h4>
-                        <input type="text" placeholder="ชื่อผู้ใช้ของคุณ" className='input-box-sigup' />
+                        <input type="text" id="username" name='username' value={user.username} placeholder="ชื่อผู้ใช้ของคุณ" className='input-box-sigup' onChange={handleChange} />
                     </div>
                     <div className="email-box-sigup">
                         <h4>อีเมล</h4>
-                        <input type="email" placeholder="อีเมลของคุณ" className='input-box-sigup' />
+                        <input type="email" id="email" name='email' value={user.email} placeholder="อีเมลของคุณ" className='input-box-sigup' onChange={handleChange} />
                     </div>
                     <div className="password-box-sigup">
                         <h4>รหัสผ่าน</h4>
-                        <input type="password" placeholder="รหัสผ่านของคุณ" className='input-box-sigup' />
+                        <input type="password" id="password" name='password' value={user.password} placeholder="รหัสผ่านของคุณ" className='input-box-sigup' onChange={handleChange} />
                     </div>
-                    <button type="submit" className="submit-button-sigup" onClick={props.onClose}>สมัครสมาชิก</button>
-                    <label>มีบัญชีผู้ใช้อยู่แล้ว? <a href='#login'>ลงชื่อเข้าใช้</a></label>
+                    <button type="submit" className="submit-button-sigup" onClick={handleSignup}>สมัครสมาชิก</button>
+                    <label>มีบัญชีผู้ใช้อยู่แล้ว? <a href='#login' onClick={props.onLoginLinkClick}>ลงชื่อเข้าใช้</a></label>
                     <div className="google-login">
                         <label>หรือ</label>
                     </div>
