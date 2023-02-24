@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 import './signupform.css';
 
+const axios = require('axios');
 export interface SignupPopupProps {
     onClose: () => void;
     onLoginLinkClick: () => void;
