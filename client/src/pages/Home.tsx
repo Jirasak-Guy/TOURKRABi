@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import LoginPopup from '../components/loginform';
 import SignupPopup from '../components/signupform';
+import Footer from '../components/footer';
 
 import './Home.css';
 
@@ -154,14 +155,8 @@ function Home() {
                     </a>
                 </div>
             </section>
-            <div className="footer-container">
-                <div className="footer">
-                    <p>Copyright</p>
-                    <div className='copyright-image' />
-                    <p>2023 TOURKRABi</p>
-                </div>
-            </div>
             <a href='#section01' onClick={handleSectionClick} className="scroll-to-top"><span></span></a>
+            <Footer></Footer>
         </div >
     )
 };
