@@ -1,9 +1,20 @@
 export default interface PKT{
-    id: number
+  id: number
+  attributes: {
     tourname: string
+    description: string
     price: number
-    customer: number
-    maxcustomer: number
-    picture: string
-    
+    current_reserve: number
+    max_reserve: number
+    image: {
+      data: [
+        {
+          id: number
+          attributes: {
+            url: string
+          }
+        }
+      ]
+    }
   }
+}

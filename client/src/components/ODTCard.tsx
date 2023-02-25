@@ -15,7 +15,8 @@ function ODTCard(props: Prop) {
     const navigate = useNavigate();
     const onedaytrip = props.onedaytrip;
 
-    const maxbooking = (onedaytrip.customer >= onedaytrip.maxcustomer) ? true : false
+    const maxbooking = (onedaytrip.attributes.current_reserve >= onedaytrip.attributes.max_reserve) ? true : false
+    const img = `http://localhost:1338${onedaytrip.attributes.image.data.attributes.url}`
 
     return (
         <Box>
@@ -23,17 +24,17 @@ function ODTCard(props: Prop) {
                 <CardActionArea onClick={()=>navigate(`/onedaytrip/${onedaytrip.id}`)}>
                     <CardMedia
                         component="img"
-                        alt={onedaytrip.picture}
+                        alt={img}
                         height="300"
-                        image={onedaytrip.picture}
+                        image={img}
                     />
                     <CardContent>
                         <Box textAlign={'center'}>
                             <Typography gutterBottom variant="h4" component="div">
-                            {onedaytrip.tourname}
+                            {onedaytrip.attributes.tourname}
                             </Typography>
                             <Typography variant="h5" className='textpricecolor'>
-                            THB {onedaytrip.price} 
+                            THB {onedaytrip.attributes.price} 
                             </Typography>
                         </Box>
                     </CardContent>
@@ -51,7 +52,7 @@ function ODTCard(props: Prop) {
                     <Box sx={{ backgroundColor:'#F0298A',borderRadius:'50px' }}>
                         <Button sx={{color:'white', fontSize:'20px', borderRadius:'30px'}}>
                             <Box sx={{backgroundColor: '#F0298A', height: '20px', width: '30px', }}/>
-                            จอง &nbsp;{onedaytrip.customer}/{onedaytrip.maxcustomer}&nbsp;
+                            จอง &nbsp;{onedaytrip.attributes.current_reserve}/{onedaytrip.attributes.max_reserve}&nbsp;
                             <img src='people.png' width={'30'} height={'30'} />
                         </Button>
                     </Box>}
