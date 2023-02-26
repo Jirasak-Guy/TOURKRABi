@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_prices_price_onedaytrips",
+  "info": {
+    "displayName": "price_onedaytrip",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "price": {
+      "type": "biginteger",
+      "required": true
+    }
+  }
+}

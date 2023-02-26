@@ -4,23 +4,42 @@
   "info": {
     "singularName": "reservation",
     "pluralName": "reservations",
-    "displayName": "Reservation"
+    "displayName": "reservation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "user_id": {
-      "type": "string",
+    "reservation_date": {
+      "type": "date",
       "required": true
     },
-    "trip_id": {
-      "type": "string"
+    "reservation_expire_date": {
+      "type": "date",
+      "required": true
     },
-    "isPaid": {
+    "total_price": {
+      "type": "biginteger",
+      "required": true
+    },
+    "payment_status": {
       "type": "boolean",
-      "required": true
+      "required": true,
+      "default": false
+    },
+    "tour": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tour.tour",
+      "inversedBy": "reservations"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "reservations"
     }
   }
 }

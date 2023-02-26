@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tours",
+  "info": {
+    "singularName": "tour",
+    "pluralName": "tours",
+    "displayName": "Tour",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tour_name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "tour_image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "current_participate": {
+      "type": "integer",
+      "required": true,
+      "default": 0
+    },
+    "maximun_participate": {
+      "type": "integer",
+      "required": true,
+      "default": 10
+    },
+    "tour_detial": {
+      "type": "text",
+      "required": true
+    },
+    "tour_type": {
+      "type": "enumeration",
+      "enum": [
+        "onedaytrip",
+        "package"
+      ],
+      "required": true
+    },
+    "price_onedaytrip": {
+      "type": "component",
+      "repeatable": false,
+      "component": "prices.price-onedaytrip"
+    },
+    "price_package": {
+      "type": "component",
+      "repeatable": true,
+      "component": "prices.price-package"
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "tour"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "tour"
+    }
+  }
+}

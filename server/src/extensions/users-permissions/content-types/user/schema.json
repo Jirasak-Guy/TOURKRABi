@@ -63,11 +63,24 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "review_one_day_trips": {
+    "Avatar": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "reservations": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::review-one-day-trip.review-one-day-trip",
-      "mappedBy": "owner"
+      "target": "api::reservation.reservation",
+      "mappedBy": "users_permissions_user"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
