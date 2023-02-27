@@ -64,23 +64,24 @@
       "configurable": false
     },
     "Avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
-    },
-    "reservations": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::reservation.reservation",
-      "mappedBy": "users_permissions_user"
+      ]
     },
     "reviews": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::review.review",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "author"
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "user"
     }
   }
 }
