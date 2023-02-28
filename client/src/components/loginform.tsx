@@ -8,7 +8,7 @@ interface LoginPopupProps {
     onSignupLinkClick: () => void;
 }
 
-const initialUser = { email: "", password: "" };
+const initialUser = { identifier: "", password: "" };
 
 const storeUser = (data: any) => {
     localStorage.setItem("username", JSON.stringify(data.user.username));
@@ -35,11 +35,11 @@ function LoginPopup(props: LoginPopupProps) {
     const handleLoggin = async () => {
         const url = 'http://localhost:1338/api/auth/local'
         try {
-            if (user.email && user.password) {
+            if (user.identifier && user.password) {
                 const { data } = await axios.post(url, user)
                 if (data.jwt) {
                     storeUser(data)
-                    window.location.reload();
+                    window.location.reload()
                 }
             }
         } catch (error: any) {
@@ -59,7 +59,7 @@ function LoginPopup(props: LoginPopupProps) {
                     </div>
                     <div className="email-box-login">
                         <h4>อีเมล</h4>
-                        <input type="email" id="email" name="email" placeholder="อีเมลของคุณ" className='input-box-login' value={user.email} onChange={handleChange} />
+                        <input type="email" id="identifier" name="identifier" placeholder="อีเมลของคุณ" className='input-box-login' value={user.identifier} onChange={handleChange} />
                     </div>
                     <div className="password-box-login">
                         <h4>รหัสผ่าน</h4>
