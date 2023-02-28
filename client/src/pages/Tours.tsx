@@ -36,11 +36,13 @@ function Tourspages() {
     const handleChangeSearchFilter = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchFilter(event.target.value)
     }
-
+    
     const filteredTrips = Tours.filter((trip) => {
+        const tourType = trip.attributes.tour_type.toLowerCase()
         const tourName = trip.attributes.tour_name.toLowerCase()
         const search = searchFilter.toLowerCase()
-        return tourName.includes(search)
+        const type = (thispath === "packagetrip") ?  "package" : "onedaytrip"
+        return tourName.includes(search) && tourType.includes(type)
     });
 
     const imgpath = (`../${thispath}.png`)
