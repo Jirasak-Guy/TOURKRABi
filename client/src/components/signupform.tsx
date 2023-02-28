@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import './signupform.css';
 
@@ -29,6 +30,11 @@ function SignupPopup(props: SignupPopupProps) {
                 const res = await axios.post(url, user)
                 if (res) {
                     setUser(initialUser)
+                    props.onClose()
+                    Swal.fire(
+                        `สมัครสมาชิกสำเร็จ!`,
+                        'ยินดีต้อนรับสู่เว็บ TOURKRABi ของเรา'
+                    )
                 }
             }
         } catch (error: any) {
