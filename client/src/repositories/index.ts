@@ -1,9 +1,7 @@
-import { OneDayTripRepo } from "./OneDayTripRepo";
-import { PackageTripRepo } from "./PackageTripRepo";
+import { TourRepo } from "./ToursRepo";
 
 const repositories = {
-    ODTRepo: new OneDayTripRepo(),
-    PKTRepo: new PackageTripRepo()
+    TourRepo: new TourRepo()
 }
 
 export default repositories
