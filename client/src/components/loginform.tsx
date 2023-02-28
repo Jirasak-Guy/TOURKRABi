@@ -8,16 +8,11 @@ interface LoginPopupProps {
     onSignupLinkClick: () => void;
 }
 
-const initialUser = { identifier: "", password: "" };
+const initialUser = { email: "", password: "" };
 
 const storeUser = (data: any) => {
-    localStorage.setItem(
-        "user",
-        JSON.stringify({
-            username: data.user.username,
-            jwt: data.jwt
-        })
-    )
+    localStorage.setItem("username", JSON.stringify(data.user.username));
+    localStorage.setItem("jwt", JSON.stringify(data.jwt));
 }
 
 export const userData = () => {
@@ -40,10 +35,11 @@ function LoginPopup(props: LoginPopupProps) {
     const handleLoggin = async () => {
         const url = 'http://localhost:1338/api/auth/local'
         try {
-            if (user.identifier && user.password) {
+            if (user.email && user.password) {
                 const { data } = await axios.post(url, user)
                 if (data.jwt) {
                     storeUser(data)
+                    window.location.reload();
                 }
             }
         } catch (error: any) {
@@ -63,7 +59,7 @@ function LoginPopup(props: LoginPopupProps) {
                     </div>
                     <div className="email-box-login">
                         <h4>อีเมล</h4>
-                        <input type="email" id="identifier" name="identifier" placeholder="อีเมลของคุณ" className='input-box-login' value={user.identifier} onChange={handleChange} />
+                        <input type="email" id="email" name="email" placeholder="อีเมลของคุณ" className='input-box-login' value={user.email} onChange={handleChange} />
                     </div>
                     <div className="password-box-login">
                         <h4>รหัสผ่าน</h4>
