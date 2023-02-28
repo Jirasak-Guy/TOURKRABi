@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import './loginform.css';
 
@@ -15,8 +16,8 @@ const storeUser = (data: any) => {
     localStorage.setItem("jwt", JSON.stringify(data.jwt));
 }
 
-export const userData = () => {
-    const stringifiedUser = localStorage.getItem('user') || '""';
+export const usernameData = () => {
+    const stringifiedUser = localStorage.getItem('username') || '""';
     return JSON.parse(stringifiedUser)
 }
 
@@ -39,7 +40,11 @@ function LoginPopup(props: LoginPopupProps) {
                 const { data } = await axios.post(url, user)
                 if (data.jwt) {
                     storeUser(data)
-                    window.location.reload()
+                    props.onClose()
+                    Swal.fire(
+                        `สวัสดี ${ usernameData() }!`,
+                        'คุณได้ลงชื่อเข้าใช้สำเร็จ'
+                    )
                 }
             }
         } catch (error: any) {
