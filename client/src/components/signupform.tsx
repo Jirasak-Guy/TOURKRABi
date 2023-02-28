@@ -32,8 +32,8 @@ function SignupPopup(props: SignupPopupProps) {
                     setUser(initialUser)
                     props.onClose()
                     Swal.fire(
-                        `สมัครสมาชิกสำเร็จ`,
-                        'ยินดีต้อนรับสู่ TOURKRABi ของเรา!'
+                        `สมัครสมาชิกสำเร็จ!`,
+                        'ยินดีต้อนรับสู่เว็บ TOURKRABi ของเรา'
                     )
                 }
             }

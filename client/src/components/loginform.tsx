@@ -42,8 +42,8 @@ function LoginPopup(props: LoginPopupProps) {
                     storeUser(data)
                     props.onClose()
                     Swal.fire(
-                        `สวัสดี ${ usernameData() }!`,
-                        'คุณได้ลงชื่อเข้าใช้สำเร็จ'
+                        'ลงชื่อเข้าใช้สำเร็จ!',
+                        `สวัสดี ${ usernameData() }`
                     )
                 }
             }
