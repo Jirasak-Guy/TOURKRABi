@@ -29,6 +29,7 @@ function SignupPopup(props: SignupPopupProps) {
                 const res = await axios.post(url, user)
                 if (res) {
                     setUser(initialUser)
+                    window.location.reload()
                 }
             }
         } catch (error: any) {
