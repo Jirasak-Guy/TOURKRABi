@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_prices_price_packages",
+  "info": {
+    "displayName": "price_package",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "room_class_hotel": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "biginteger",
+      "required": true
+    }
+  }
+}
