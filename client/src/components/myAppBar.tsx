@@ -69,7 +69,7 @@ function TourAppBar() {
     setShowSignup(false);
   }
 
-  const isUser = (localStorage.getItem("username")) ? true : false
+  const isUser = (localStorage.getItem("jwt")) ? true : false
 
   return (
     <ThemeProvider theme={Theme}>
