@@ -220,11 +220,18 @@ function TourAppBar() {
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={handleLoginClick}>Log in</MenuItem>
-            {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
-            <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>
-            {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
-            <MenuItem onClick={() => localStorage.clear()} >Log out</MenuItem>
+            {isUser ?
+              <div>
+                <MenuItem onClick={() => localStorage.clear()} >Log out</MenuItem>
+              </div>
+              :
+              <div>
+                <MenuItem onClick={handleLoginClick}>Log in</MenuItem>
+                {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>
+                {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+              </div>
+            }
           </Menu>
         </Toolbar>
       </AppBar>
