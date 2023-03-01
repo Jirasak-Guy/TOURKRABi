@@ -33,22 +33,64 @@ function LoginPopup(props: LoginPopupProps) {
         }));
     }
 
+    const isValidEmail = (email: string) => {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    const validateInputs = () => {
+        const emailValue = user.identifier.trim();
+        const passwordValue = user.password.trim();
+
+        let errorMessage: string = "";
+
+        if (emailValue === '') {
+            errorMessage += 'Email is required.\n';
+        } else if (isValidEmail(emailValue)) {
+            errorMessage += 'Provide a valid email address.\n'
+        }
+
+        if (passwordValue === '') {
+            errorMessage += 'Password is required.\n'
+        }
+        return errorMessage
+    };
+
     const handleLoggin = async () => {
         const url = 'http://localhost:1338/api/auth/local'
         try {
-            if (user.identifier && user.password) {
-                const { data } = await axios.post(url, user)
-                if (data.jwt) {
-                    storeUser(data)
-                    props.onClose()
-                    Swal.fire(
-                        'ลงชื่อเข้าใช้สำเร็จ!',
-                        `สวัสดี ${ usernameData() }`
-                    )
+            if (isValidEmail(user.identifier)) {
+                if (user.identifier && user.password) {
+                    const { data } = await axios.post(url, user)
+                    if (data.jwt) {
+                        storeUser(data)
+                        props.onClose()
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: `ลงชื่อเข้าใช้สำเร็จ!\nสวัสดี ${usernameData()}`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                } else if (!user.identifier && !user.password) {
+                    alert('Please complete the information.')
+                } else {
+                    alert(validateInputs());
                 }
+            } else {
+                alert('Provide a valid email address.\n')
             }
         } catch (error: any) {
-            console.log('An error occurred:', error.response);
+            if (error.response) {
+                const { data } = error.response;
+                if (data.error.message) {
+                    const errorMessage = data.error.message.toLowerCase();
+                    alert(errorMessage)
+                }
+            } else {
+                console.log(error);
+            }
         }
     }
 
@@ -77,7 +119,6 @@ function LoginPopup(props: LoginPopupProps) {
                     <button type="submit" className="submit-button-login" onClick={handleLoggin}>เข้าสู่ระบบ</button>
                     <label>ยังไม่มีบัญชีผู้ใช้? <a href='#register' onClick={props.onSignupLinkClick} >สมัครสมาชิก</a></label>
                     <div className="google-login">
-                        <label>หรือ</label>
                     </div>
                 </div>
             </div>
