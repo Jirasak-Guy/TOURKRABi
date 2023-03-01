@@ -69,6 +69,8 @@ function TourAppBar() {
     setShowSignup(false);
   }
 
+  const isUser = (localStorage.getItem("username")) ? true : false
+
   return (
     <ThemeProvider theme={Theme}>
       <AppBar position="sticky" color="primary">
@@ -192,6 +194,7 @@ function TourAppBar() {
                 </Box>}
             </Box>
           </Typography>
+          {isUser && <p>{localStorage.getItem("username")?.split('"')[1]}</p>}
           <IconButton
             size="large"
             aria-label="account of current user"
