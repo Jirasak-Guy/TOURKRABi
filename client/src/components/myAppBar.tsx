@@ -222,7 +222,7 @@ function TourAppBar() {
           >
             {isUser ?
               <div>
-                <MenuItem onClick={() => localStorage.clear()} >Log out</MenuItem>
+                <MenuItem onClick={() => { localStorage.clear(); handleCloseMenu() }} >Log out</MenuItem>
               </div>
               :
               <div>
