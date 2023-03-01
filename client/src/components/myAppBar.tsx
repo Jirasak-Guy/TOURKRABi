@@ -224,6 +224,7 @@ function TourAppBar() {
             {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
             <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>
             {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+            <MenuItem onClick={() => localStorage.clear()} >Log out</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
