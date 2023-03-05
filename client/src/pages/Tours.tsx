@@ -58,7 +58,7 @@ function Tourspages() {
                 <img src={imgpath} width="100%" />
             </Box>
             <TextField
-                className='SearchFilter'
+                style={{ margin: '0.75% 0% 0% 1.5% ' }}
                 label="Search"
                 variant='outlined'
                 value={searchFilter}
@@ -69,6 +69,17 @@ function Tourspages() {
                             <Search fontSize="large" />
                         </InputAdornment>
                     ),
+                }}
+                sx={{
+                    backgroundColor: 'white',
+                    display: 'flex',
+                    maxWidth: '97%',
+                    width: '500px',
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderRadius: '50px'
+                        }
+                    },
                 }}
             />
             <Box maxWidth={'95%'}
