@@ -36,12 +36,12 @@ function Tourspages() {
     const handleChangeSearchFilter = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchFilter(event.target.value)
     }
-    
+
     const filteredTrips = Tours.filter((trip) => {
         const tourType = trip.attributes.tour_type.toLowerCase()
         const tourName = trip.attributes.tour_name.toLowerCase()
         const search = searchFilter.toLowerCase()
-        const type = (thispath === "packagetrip") ?  "package" : "onedaytrip"
+        const type = (thispath === "packagetrip") ? "package" : "onedaytrip"
         return tourName.includes(search) && tourType.includes(type)
     });
 
@@ -71,17 +71,25 @@ function Tourspages() {
                     ),
                 }}
             />
-            <Grid
-                container
-                spacing={{ xs: 2, md: 3 }}
-                columns={{ xs: 1, sm: 2, md: 12, lg: 12, xl: 6 }}
+            <Box maxWidth={'95%'}
+                style={{
+                    margin: '1% auto',
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}
             >
-                {filteredTrips.map((Tours, index) => (
-                    <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
-                        <Card tour={Tours} onUpdateTour={onUpdateTour} />
-                    </Grid>
-                ))}
-            </Grid>
+                <Grid
+                    container
+                    spacing={{ xs: 2, md: 3 }}
+                    columns={{ xs: 1, sm: 2, md: 8, lg: 9, xl: 8 }}
+                >
+                    {filteredTrips.map((Tours, index) => (
+                        <Grid item xs={2} sm={4} md={4} lg={3} xl={2} key={index}>
+                            <Card tour={Tours} onUpdateTour={onUpdateTour} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
         </div>
     )
 }
