@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 import { API } from "../constant";
-import { setToken } from "../helpers";
-import { useAuthContext } from '../context/AuthContext';
 
 import './signupform.css';
 
@@ -17,8 +14,6 @@ const initialUser = { username: "", email: "", password: "" };
 function SignupPopup(props: SignupPopupProps) {
 
     const [userInfo, setUserInfo] = useState(initialUser);
-    const { setUser } = useAuthContext();
-    const navigate = useNavigate()
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = target;
@@ -69,24 +64,14 @@ function SignupPopup(props: SignupPopupProps) {
                     },
                     body: JSON.stringify(userInfo),
                 });
-
-                const data = await response.json();
-                if (data?.error) {
-                    alert(data.error.message);
-                } else {
-                    await setToken(data.jwt);
-                    await setUser(data.user);
-                    await props.onClose();
-                    await Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: `สมัครสมาชิกสำเร็จ!\nสวัสดี ${data.user.username}`,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    navigate("/booking", { replace: true });
-                    window.location.reload();
-                }
+                await props.onClose()
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'สมัครสมาชิกสำเร็จ!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             } else if (!userInfo.username && !userInfo.password && !userInfo.email) {
                 alert('Please complete the information.')
             } else {
@@ -104,37 +89,6 @@ function SignupPopup(props: SignupPopupProps) {
             }
         }
     };
-
-    // const handleSignup = async () => {
-    //     const url = 'http://localhost:1338/api/auth/local/register'
-    //     try {
-    //         if (userInfo.username && userInfo.password && userInfo.email) {
-    //             const result = await axios.post(url, userInfo)
-    //             if (result) {
-    //                 setUserInfo(initialUser)
-    //                 props.onClose()
-    //                 Swal.fire(
-    //                     `สมัครสมาชิกสำเร็จ!`,
-    //                     'ยินดีต้อนรับสู่เว็บ TOURKRABi ของเรา'
-    //                 )
-    //             }
-    //         } else if (!userInfo.username && !userInfo.password && !userInfo.email) {
-    //             alert('Please complete the information.')
-    //         } else {
-    //             alert(validateInputs());
-    //         }
-    //     } catch (error: any) {
-    //         if (error.response) {
-    //             const { data } = error.response;
-    //             if (data.error.message) {
-    //                 const errorMessage = data.error.message.toLowerCase();
-    //                 alert(errorMessage)
-    //             }
-    //         } else {
-    //             console.log(error);
-    //         }
-    //     }
-    // }
 
     return (
         <div className="popup-layout-sigup">
