@@ -148,7 +148,7 @@ function TourAppBar() {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton onClick={() => navigate('/booking')}>
+              <ListItemButton onClick={() => navigate('/profile')}>
                 <ListItemIcon>
                   <img src='../BookingIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
@@ -200,7 +200,7 @@ function TourAppBar() {
                   <Button
                     size="large"
                     aria-label="Booking Button"
-                    onClick={() => navigate('/booking')}
+                    onClick={() => navigate('/profile')}
                     color="inherit"
                   >
                     <img src="../BookingIcon.png" alt="(BookingIcon)" width={"33.3"} height={"33.3"} />
