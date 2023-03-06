@@ -17,11 +17,11 @@ function TourAppBar() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const { user } = useAuthContext();
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState<string>();
 
   const fetchProfiles = async () => {
     try {
-      const response: any = await fetch(`${API}/users/me?populate[Avatar][fields][0]=url`, {
+      const response = await fetch(`${API}/users/me?populate[Avatar][fields][0]=url`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -29,10 +29,9 @@ function TourAppBar() {
         }
       })
       const data = await response.json();
-      setAvatar(data.Avatar.url)
+      setAvatar(API_URL + data.Avatar.url)
     } catch (error: any) {
-      console.error(error);
-      alert("Error while fetching profiles!");
+      setAvatar("https://static.thenounproject.com/png/363633-200.png")
     }
   };
 
@@ -41,7 +40,7 @@ function TourAppBar() {
       fetchProfiles();
     }
   }, [user]);
-
+  
   const handleOpenMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -243,7 +242,7 @@ function TourAppBar() {
                 onClick={handleOpenMenu}
                 color="inherit"
               >
-                <Avatar src={API_URL + avatar} />
+                <Avatar src={avatar} />
               </IconButton>
             </Box>
           ) : (
