@@ -57,7 +57,7 @@ function SignupPopup(props: SignupPopupProps) {
     const handleSignup = async () => {
         try {
             if (userInfo.username && userInfo.password && userInfo.email) {
-                const response = await fetch(`${API}/auth/local/register`, {
+                await fetch(`${API}/auth/local/register`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
