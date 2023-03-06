@@ -98,44 +98,6 @@ function LoginPopup(props: LoginPopupProps) {
         }
     };
 
-    // const handleLoggin = async () => {
-    //     const url = 'http://localhost:1338/api/auth/local'
-    //     try {
-    //         if (isValidEmail(user.identifier)) {
-    //             if (user.identifier && user.password) {
-    //                 const { data } = await axios.post(url, user)
-    //                 if (data.jwt) {
-    //                     storeUser(data)
-    //                     props.onClose()
-    //                     Swal.fire({
-    //                         position: 'center',
-    //                         icon: 'success',
-    //                         title: `ลงชื่อเข้าใช้สำเร็จ!\nสวัสดี ${usernameData()}`,
-    //                         showConfirmButton: false,
-    //                         timer: 1500
-    //                     })
-    //                 }
-    //             } else if (!user.identifier && !user.password) {
-    //                 alert('Please complete the information.')
-    //             } else {
-    //                 alert(validateInputs());
-    //             }
-    //         } else {
-    //             alert('Provide a valid email address.\n')
-    //         }
-    //     } catch (error: any) {
-    //         if (error.response) {
-    //             const { data } = error.response;
-    //             if (data.error.message) {
-    //                 const errorMessage = data.error.message.toLowerCase();
-    //                 alert(errorMessage)
-    //             }
-    //         } else {
-    //             console.log(error);
-    //         }
-    //     }
-    // }
-
     return (
         <div className="popup-layout-login">
             <div className="popup-overlay-login" onClick={props.onClose} />
