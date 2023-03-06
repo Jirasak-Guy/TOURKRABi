@@ -1,9 +1,13 @@
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, ThemeProvider, createTheme, Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import Avatar from '@mui/material/Avatar';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SignupPopup from "./signupform";
 import LoginPopup from "./loginform";
+import { useAuthContext } from "../context/AuthContext";
+import { removeToken, getToken } from "../helpers";
+import { API, API_URL } from "../constant";
 
 function TourAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -12,6 +16,31 @@ function TourAppBar() {
   const [windowwidth, setWindowwidth] = useState(window.innerWidth);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const { user } = useAuthContext();
+  const [avatar, setAvatar] = useState();
+
+  const fetchProfiles = async () => {
+    try {
+      const response: any = await fetch(`${API}/users/me?populate[Avatar][fields][0]=url`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        }
+      })
+      const data = await response.json();
+      setAvatar(data.Avatar.url)
+    } catch (error: any) {
+      console.error(error);
+      alert("Error while fetching profiles!");
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchProfiles();
+    }
+  }, [user]);
 
   const handleOpenMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -69,6 +98,14 @@ function TourAppBar() {
     setShowSignup(false);
   }
 
+  const handleLogout = () => {
+    setAnchorEl(null);
+    removeToken();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
+
   const isUser = (localStorage.getItem("jwt")) ? true : false
 
   return (
@@ -90,7 +127,7 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/')}>
                 <ListItemIcon>
-                  <img src='../HomeIcon.png' width={'30'} />
+                  <img src='../HomeIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItemButton>
@@ -98,7 +135,7 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/onedaytrip')}>
                 <ListItemIcon>
-                  <img src='../OneDayTripIcon.png' width={'30'} />
+                  <img src='../OneDayTripIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="One Day Trip" />
               </ListItemButton>
@@ -106,7 +143,7 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/packagetrip')}>
                 <ListItemIcon>
-                  <img src='../PackageIcon.png' width={'30'} />
+                  <img src='../PackageIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="Package" />
               </ListItemButton>
@@ -114,9 +151,9 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/booking')}>
                 <ListItemIcon>
-                  <img src='../BookingIcon.png' width={'30'} />
+                  <img src='../BookingIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
-                <ListItemText primary="Booking" />
+                <ListItemText primary="booking" />
               </ListItemButton>
             </ListItem>
           </List>
@@ -124,7 +161,7 @@ function TourAppBar() {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Box>
-              {isPC ?
+              {isPC ? (
                 <Box>
                   <Button
                     size="large"
@@ -171,7 +208,7 @@ function TourAppBar() {
                     &nbsp;Booking
                   </Button>
                 </Box>
-                :
+              ) : (
                 <Box>
                   <IconButton
                     size="large"
@@ -191,20 +228,36 @@ function TourAppBar() {
                   >
                     <img src="../applogo.png" alt="(AppIcon)" width={"134.52"} height={"26.64"} />
                   </Button>
-                </Box>}
+                </Box>
+              )}
             </Box>
           </Typography>
-          {isUser && <p>{localStorage.getItem("username")?.split('"')[1]}</p>}
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenMenu}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+          {isUser ? (
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
+              <p>{user?.username}</p>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenMenu}
+                color="inherit"
+              >
+                <Avatar src={API_URL + avatar} />
+              </IconButton>
+            </Box>
+          ) : (
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenMenu}
+              color="inherit"
+            >
+              <Avatar />
+            </IconButton>
+          )}
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -222,7 +275,7 @@ function TourAppBar() {
           >
             {isUser ?
               <div>
-                <MenuItem onClick={() => { localStorage.clear(); handleCloseMenu() }} >Log out</MenuItem>
+                <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
               </div>
               :
               <div>
