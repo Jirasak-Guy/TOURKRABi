@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { API } from "../constant";
+import { setToken } from "../helpers";
+import { useAuthContext } from '../context/AuthContext';
 
 import './signupform.css';
 
@@ -13,11 +16,13 @@ const initialUser = { username: "", email: "", password: "" };
 
 function SignupPopup(props: SignupPopupProps) {
 
-    const [user, setUser] = useState(initialUser);
+    const [userInfo, setUserInfo] = useState(initialUser);
+    const { setUser } = useAuthContext();
+    const navigate = useNavigate()
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = target;
-        setUser((currentUser) => ({
+        setUserInfo((currentUser) => ({
             ...currentUser,
             [name]: value,
         }));
@@ -29,9 +34,9 @@ function SignupPopup(props: SignupPopupProps) {
     };
 
     const validateInputs = () => {
-        const usernameValue = user.username.trim();
-        const emailValue = user.email.trim();
-        const passwordValue = user.password.trim();
+        const usernameValue = userInfo.username.trim();
+        const emailValue = userInfo.email.trim();
+        const passwordValue = userInfo.password.trim();
 
         let errorMessage: string = "";
 
@@ -55,19 +60,34 @@ function SignupPopup(props: SignupPopupProps) {
     };
 
     const handleSignup = async () => {
-        const url = 'http://localhost:1338/api/auth/local/register'
         try {
-            if (user.username && user.password && user.email) {
-                const result = await axios.post(url, user)
-                if (result) {
-                    setUser(initialUser)
-                    props.onClose()
-                    Swal.fire(
-                        `สมัครสมาชิกสำเร็จ!`,
-                        'ยินดีต้อนรับสู่เว็บ TOURKRABi ของเรา'
-                    )
+            if (userInfo.username && userInfo.password && userInfo.email) {
+                const response = await fetch(`${API}/auth/local/register`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userInfo),
+                });
+
+                const data = await response.json();
+                if (data?.error) {
+                    alert(data.error.message);
+                } else {
+                    await setToken(data.jwt);
+                    await setUser(data.user);
+                    await props.onClose();
+                    await Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: `สมัครสมาชิกสำเร็จ!\nสวัสดี ${data.user.username}`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate("/booking", { replace: true });
+                    window.location.reload();
                 }
-            } else if (!user.username && !user.password && !user.email) {
+            } else if (!userInfo.username && !userInfo.password && !userInfo.email) {
                 alert('Please complete the information.')
             } else {
                 alert(validateInputs());
@@ -83,7 +103,38 @@ function SignupPopup(props: SignupPopupProps) {
                 console.log(error);
             }
         }
-    }
+    };
+
+    // const handleSignup = async () => {
+    //     const url = 'http://localhost:1338/api/auth/local/register'
+    //     try {
+    //         if (userInfo.username && userInfo.password && userInfo.email) {
+    //             const result = await axios.post(url, userInfo)
+    //             if (result) {
+    //                 setUserInfo(initialUser)
+    //                 props.onClose()
+    //                 Swal.fire(
+    //                     `สมัครสมาชิกสำเร็จ!`,
+    //                     'ยินดีต้อนรับสู่เว็บ TOURKRABi ของเรา'
+    //                 )
+    //             }
+    //         } else if (!userInfo.username && !userInfo.password && !userInfo.email) {
+    //             alert('Please complete the information.')
+    //         } else {
+    //             alert(validateInputs());
+    //         }
+    //     } catch (error: any) {
+    //         if (error.response) {
+    //             const { data } = error.response;
+    //             if (data.error.message) {
+    //                 const errorMessage = data.error.message.toLowerCase();
+    //                 alert(errorMessage)
+    //             }
+    //         } else {
+    //             console.log(error);
+    //         }
+    //     }
+    // }
 
     return (
         <div className="popup-layout-sigup">
@@ -94,17 +145,17 @@ function SignupPopup(props: SignupPopupProps) {
                     <h2>สมัครสมาชิก</h2>
                     <div className="input-control">
                         <label htmlFor="username">ชื่อผู้ใช้</label>
-                        <input id="username" name="username" type="text" value={user.username} placeholder="ชื่อผู้ใช้ของคุณ" className='input-box-sigup' onChange={handleChange} />
+                        <input id="username" name="username" type="text" value={userInfo.username} placeholder="ชื่อผู้ใช้ของคุณ" className='input-box-sigup' onChange={handleChange} />
                         <div className="error"></div>
                     </div>
                     <div className="input-control">
                         <label htmlFor="email">อีเมล</label>
-                        <input id="email" name="email" type="text" value={user.email} placeholder="อีเมลของคุณ" className='input-box-sigup' onChange={handleChange} />
+                        <input id="email" name="email" type="text" value={userInfo.email} placeholder="อีเมลของคุณ" className='input-box-sigup' onChange={handleChange} />
                         <div className="error"></div>
                     </div>
                     <div className="input-control">
                         <label htmlFor="password">รหัสผ่าน</label>
-                        <input id="password" name="password" type="password" value={user.password} placeholder="รหัสผ่านของคุณ" className='input-box-sigup' onChange={handleChange} />
+                        <input id="password" name="password" type="password" value={userInfo.password} placeholder="รหัสผ่านของคุณ" className='input-box-sigup' onChange={handleChange} />
                         <div className="error"></div>
                     </div>
                     <button type="submit" className="submit-button-sigup" onClick={handleSignup}>สมัครสมาชิก</button>
