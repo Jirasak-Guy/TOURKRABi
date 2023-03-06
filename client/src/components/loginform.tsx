@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useAuthContext } from "../context/AuthContext";
+import { API } from "../constant";
+import { setToken } from "../helpers";
 
 import './loginform.css';
 
@@ -11,23 +13,14 @@ interface LoginPopupProps {
 
 const initialUser = { identifier: "", password: "" };
 
-const storeUser = (data: any) => {
-    localStorage.setItem("username", JSON.stringify(data.user.username));
-    localStorage.setItem("jwt", JSON.stringify(data.jwt));
-}
-
-export const usernameData = () => {
-    const stringifiedUser = localStorage.getItem('username') || '""';
-    return JSON.parse(stringifiedUser)
-}
-
 function LoginPopup(props: LoginPopupProps) {
 
-    const [user, setUser] = useState(initialUser)
+    const [userInfo, setUserInfo] = useState(initialUser)
+    const { setUser } = useAuthContext();
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = target;
-        setUser((currentUser) => ({
+        setUserInfo((currentUser) => ({
             ...currentUser,
             [name]: value,
         }));
@@ -39,8 +32,8 @@ function LoginPopup(props: LoginPopupProps) {
     };
 
     const validateInputs = () => {
-        const emailValue = user.identifier.trim();
-        const passwordValue = user.password.trim();
+        const emailValue = userInfo.identifier.trim();
+        const passwordValue = userInfo.password.trim();
 
         let errorMessage: string = "";
 
@@ -57,29 +50,40 @@ function LoginPopup(props: LoginPopupProps) {
     };
 
     const handleLoggin = async () => {
-        const url = 'http://localhost:1338/api/auth/local'
         try {
-            if (isValidEmail(user.identifier)) {
-                if (user.identifier && user.password) {
-                    const { data } = await axios.post(url, user)
-                    if (data.jwt) {
-                        storeUser(data)
-                        props.onClose()
-                        Swal.fire({
+            if (userInfo.identifier && userInfo.password) {
+                if (isValidEmail(userInfo.identifier)) {
+                    const response = await fetch(`${API}/auth/local`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(userInfo),
+                    });
+
+                    const data = await response.json();
+                    if (data?.error) {
+                        alert('Incorrect email or password. Please try again.');
+                    } else {
+                        await setToken(data.jwt);
+                        await setUser(data.user);
+                        await props.onClose();
+                        await Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: `ลงชื่อเข้าใช้สำเร็จ!\nสวัสดี ${usernameData()}`,
+                            title: `ลงชื่อเข้าใช้สำเร็จ!\nสวัสดี ${data.user.username}`,
                             showConfirmButton: false,
                             timer: 1500
-                        })
+                        });
+                        window.location.reload();
                     }
-                } else if (!user.identifier && !user.password) {
-                    alert('Please complete the information.')
                 } else {
-                    alert(validateInputs());
+                    alert('Provide a valid email address.\n')
                 }
+            } else if (!userInfo.identifier && !userInfo.password) {
+                alert('Please complete the information.')
             } else {
-                alert('Provide a valid email address.\n')
+                alert(validateInputs());
             }
         } catch (error: any) {
             if (error.response) {
@@ -92,7 +96,45 @@ function LoginPopup(props: LoginPopupProps) {
                 console.log(error);
             }
         }
-    }
+    };
+
+    // const handleLoggin = async () => {
+    //     const url = 'http://localhost:1338/api/auth/local'
+    //     try {
+    //         if (isValidEmail(user.identifier)) {
+    //             if (user.identifier && user.password) {
+    //                 const { data } = await axios.post(url, user)
+    //                 if (data.jwt) {
+    //                     storeUser(data)
+    //                     props.onClose()
+    //                     Swal.fire({
+    //                         position: 'center',
+    //                         icon: 'success',
+    //                         title: `ลงชื่อเข้าใช้สำเร็จ!\nสวัสดี ${usernameData()}`,
+    //                         showConfirmButton: false,
+    //                         timer: 1500
+    //                     })
+    //                 }
+    //             } else if (!user.identifier && !user.password) {
+    //                 alert('Please complete the information.')
+    //             } else {
+    //                 alert(validateInputs());
+    //             }
+    //         } else {
+    //             alert('Provide a valid email address.\n')
+    //         }
+    //     } catch (error: any) {
+    //         if (error.response) {
+    //             const { data } = error.response;
+    //             if (data.error.message) {
+    //                 const errorMessage = data.error.message.toLowerCase();
+    //                 alert(errorMessage)
+    //             }
+    //         } else {
+    //             console.log(error);
+    //         }
+    //     }
+    // }
 
     return (
         <div className="popup-layout-login">
@@ -106,11 +148,11 @@ function LoginPopup(props: LoginPopupProps) {
                     </div>
                     <div className="email-box-login">
                         <h4>อีเมล</h4>
-                        <input type="email" id="identifier" name="identifier" placeholder="อีเมลของคุณ" className='input-box-login' value={user.identifier} onChange={handleChange} />
+                        <input type="email" id="identifier" name="identifier" placeholder="อีเมลของคุณ" className='input-box-login' value={userInfo.identifier} onChange={handleChange} />
                     </div>
                     <div className="password-box-login">
                         <h4>รหัสผ่าน</h4>
-                        <input type="password" id="password" name="password" placeholder="รหัสผ่านของคุณ" className='input-box-login' value={user.password} onChange={handleChange} />
+                        <input type="password" id="password" name="password" placeholder="รหัสผ่านของคุณ" className='input-box-login' value={userInfo.password} onChange={handleChange} />
                     </div>
                     <div className="form-element-login">
                         <input type="checkbox" id='remember-me' />
