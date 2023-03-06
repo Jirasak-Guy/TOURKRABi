@@ -477,3 +477,9 @@ header nav ul li a:hover::after {
 .popup.show {
     display: block;
 }
+
+.username-text {
+    color: white;
+    font-size: 18px;
+    margin-right: 15px;
+}
