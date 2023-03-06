@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import Tourreview from "../pages/TourReview";
 import Tour from "../pages/Tours";
 import Profilepage from "../pages/Profile";
+import { getToken } from "../helpers";
 
 const AppRoutes = () => {
     return (
@@ -11,7 +12,7 @@ const AppRoutes = () => {
             <Route path="onedaytrip" element={<Tour />} />
             <Route path="packagetrip" element={<Tour />} />
             <Route path="tour/:id" element={<Tourreview />} />
-            <Route path="profile" element={<Profilepage />} />
+            <Route path="booking" element={getToken() ? <Profilepage /> : <Home />} />
         </Routes>
     );
 };
