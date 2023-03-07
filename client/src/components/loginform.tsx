@@ -120,10 +120,8 @@ function LoginPopup(props: LoginPopupProps) {
                         <input type="checkbox" id='remember-me' />
                         <label> จดจำฉันไว้</label>
                     </div>
-                    <button type="submit" className="submit-button-login" onClick={handleLoggin}>เข้าสู่ระบบ</button>
+                    <button type="submit" className="submit-button-login" onClick={handleLoggin} data-testid="login-button">เข้าสู่ระบบ</button>
                     <label>ยังไม่มีบัญชีผู้ใช้? <a href='#register' onClick={props.onSignupLinkClick} >สมัครสมาชิก</a></label>
-                    <div className="google-login">
-                    </div>
                 </div>
             </div>
         </div>
