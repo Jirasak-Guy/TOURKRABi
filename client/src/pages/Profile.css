@@ -1,0 +1,147 @@
+*{
+  margin: 0;
+  padding: 0px;
+}
+
+.Box{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.Profile-Card{
+  width: 1100px;
+  height: 350px;
+  background: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+}
+
+.avatar1{
+  width: 300px;
+  height: 300px;
+  background: white;
+  margin: 10px;
+  align-items: center;
+  justify-items: center;
+  align-self: center;
+}
+
+.useravatar1{
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.infobox{
+  width: 110px;
+  height: 200px;
+  background: white;
+}
+
+.infobox1{
+  width: 100px;
+  height: 100px;
+  background: white;
+  margin: 10px;
+  margin-top: 105px;
+
+}
+.infobox2{
+  width: 150px;
+  height: 100px;
+  background: white;
+  margin: 10px;
+  margin-top: 45px;
+  margin-left: 15px;
+}
+
+.info{
+  width: 500px;
+  height: 350px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.username{
+  width: 450px;
+  height: 10%;
+  background: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin: 10px;
+  margin-top: 100px;
+  margin-left: 5px;
+  padding: 30px;
+}
+
+.email{
+  width: 450px;
+  height: 10%;
+  background: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin: 10px;
+  margin-left: 5px;
+  padding: 30px;
+}
+
+.touricon{
+  width: 220px;
+  height: 350px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.touricon1{
+  position: absolute;
+  width: 170px;
+  height: 70px;
+  margin-top: 270px;
+}
+
+.History-Booking{
+  width: 450px;
+  height: 80px;
+  background: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin: 100px;
+  margin-top: 60px;
+  text-align: center;
+  font-size: 22px;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+table tr td {
+  width: 260px;
+  height: 80px;
+  padding: 10px;
+  border: 2px solid black;
+  background-color: white;
+
+}
+
+table tr th{
+  width: 260px;
+  height: 80px;
+  padding: 10px;
+  border: 2px solid black;
+  background-color: lightgrey;
+
+}
+
