@@ -1,0 +1,24 @@
+.detailhead {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.detail {
+    padding: 15px;
+    width: 95%;
+    border-radius: 20px;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.price {
+    padding: 15px;
+    border-radius: 20px;
+    display: inline-block;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
