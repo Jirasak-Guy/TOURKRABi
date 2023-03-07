@@ -7,14 +7,14 @@ export default interface UserData {
     }
     reservations: [
         {
-            reservation_date: Date
-            reservation_expire_date: Date
-            total_price: number
-            payment_status: boolean
+            reservation_date: Date;
+            reservation_expire_date: Date;
+            total_price: number;
+            payment_status: boolean;
             tour: {
-                tour_name: string
-                current_participate: number
-                maximun_participate: number
+                tour_name: string;
+                current_participate: number;
+                maximun_participate: number;
             }
         }
     ]
