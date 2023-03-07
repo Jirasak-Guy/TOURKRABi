@@ -1,11 +1,11 @@
 import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react'; // add useState and useEffect imports
+import { useEffect, useState } from 'react'; 
 import AppBar from "../components/myAppBar";
 import Repo from '../repositories';
 import DetailHead from "../components/DetailHead";
 import Tour from "../models/Tours";
-import "../fonts/FCOrbitRounded.ttf"
+import ReviewCard from "../components/reviewcard";
 
 
 function Tourreview() {
@@ -145,6 +145,7 @@ function Tourreview() {
                     textAlign: 'justify',
                 }}>รีวิว</Typography>
             </Box>
+            <ReviewCard></ReviewCard>
         </Box>
     )
 
