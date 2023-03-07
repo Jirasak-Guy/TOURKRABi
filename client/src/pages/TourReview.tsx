@@ -20,6 +20,8 @@ function Tourreview() {
             const Tours = await Repo.TourRepo.get(id);
             if (Tours) {
                 setData(Tours)
+            }else{
+                navigate('/')
             }
         }
     }
