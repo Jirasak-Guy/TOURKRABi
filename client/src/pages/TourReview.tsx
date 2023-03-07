@@ -1,17 +1,19 @@
-import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { useParams } from 'react-router-dom';
+import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react'; 
 import AppBar from "../components/myAppBar";
 import Repo from '../repositories';
 import DetailHead from "../components/DetailHead";
 import Tour from "../models/Tours";
 import ReviewCard from "../components/reviewcard";
+import './TourReview.css'
 
 
 function Tourreview() {
     const url = useParams()
     const id = url.id
     const [data, setData] = useState<Tour>();
+    const navigate = useNavigate();
 
     const fetchTourData = async () => {
         if (id) {
@@ -20,8 +22,9 @@ function Tourreview() {
                 setData(Tours)
             }
         }
-
     }
+
+    const ismax = (data?.attributes?.current_participate ?? 0) >= (data?.attributes?.maximun_participate ?? 0) ? true : false
 
     useEffect(() => {
         fetchTourData();
@@ -32,64 +35,51 @@ function Tourreview() {
             <AppBar></AppBar>
             <DetailHead tourdata={data} />
             <Box>
-                <Typography variant="body1" fontWeight="bold" sx={{
-                    padding: '5px',
-                    fontSize: '35px',
-                    marginTop: '30px',
-                    marginLeft: '10px',
-                    border: 'none',
-                    marginRight: '10px',
-                    borderRadius: '10px',
-                    display: 'inline-block',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                }}>รายละเอียด</Typography>
+                <Typography className="detailhead"
+                    sx={{
+                        fontSize: '35px',
+                        marginLeft: '15px',
+                        marginTop: '30px',
+                        marginRight: '10px',
+                    }}
+                >
+                    รายละเอียด
+                </Typography>
             </Box>
-            <Box>
-                <Typography variant="body1" sx={{
-                    padding: '10px',
-                    fontSize: '24px',
-                    marginTop: '30px',
-                    marginLeft: '10px',
-                    border: 'none',
-                    marginRight: '10px',
-                    borderRadius: '10px',
-                    display: 'inline-block',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                    textAlign: 'justify',
-                    fontWeight: "regular",
-                }}>{data?.attributes.tour_detial}
+            <Box display={'flex'} justifyContent={'center'}>
+                <Typography
+                    className="detail"
+                    sx={{
+                        fontSize: '24px',
+                        marginTop: '30px',
+                        textAlign: 'justify',
+                    }}>{data?.attributes.tour_detial}
                 </Typography>
             </Box>
             <Box sx={{ marginBottom: '30px' }}>
-                <Typography variant="body1" sx={{
-                    paddingLeft: '50px',
-                    paddingRight: '50px',
-                    fontSize: '35px',
-                    marginTop: '30px',
-                    marginLeft: '10px',
-                    border: 'none',
-                    marginRight: '10px',
-                    borderRadius: '10px',
-                    display: 'inline-block',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                    textAlign: 'justify',
-                }}>ราคา
+                <Typography
+                    className="detailhead"
+                    sx={{
+                        paddingLeft: '50px',
+                        paddingRight: '50px',
+                        fontSize: '35px',
+                        marginTop: '30px',
+                        marginLeft: '15px',
+                    }}
+                >
+                    ราคา
                 </Typography>
             </Box>
             <Box>
                 <Typography variant="body1">
                     {(data?.attributes.price_onedaytrip) ?
-                        <Typography variant="body1" sx={{
-                            padding: '5px',
-                            fontSize: '35px',
-                            marginLeft: '10px',
-                            marginRight: '10px',
-                            border: 'none',
-                            borderRadius: '10px',
-                            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                            textAlign: 'justify',
-                            display: 'inline-block',
-                        }}>{data?.attributes.price_onedaytrip.price} บาท </Typography>
+                        <Typography
+                            className="price"
+                            sx={{
+                                fontSize: '35px',
+                                marginLeft: '3%',
+                                marginRight: '10px',
+                            }}>{data?.attributes.price_onedaytrip.price} บาท </Typography>
                         :
                         <Box sx={{
                             padding: '5px',
@@ -131,22 +121,18 @@ function Tourreview() {
                 </Typography>
             </Box>
             <Box>
-                <Typography sx={{
-                    paddingLeft: '50px',
-                    paddingRight: '50px',
-                    fontSize: '35px',
-                    marginTop: '30px',
-                    marginLeft: '10px',
-                    border: 'none',
-                    marginRight: '10px',
-                    borderRadius: '10px',
-                    display: 'inline-block',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                    textAlign: 'justify',
-                }}>รีวิว</Typography>
+                <Typography
+                    className="detailhead"
+                    sx={{
+                        fontSize: '35px',
+                        marginTop: '30px',
+                        marginLeft: '15px',
+                        paddingLeft: '50px',
+                        paddingRight: '50px',
+                    }}>รีวิว</Typography>
             </Box>
             <ReviewCard></ReviewCard>
-        </Box>
+        </Box >
     )
 
 }
