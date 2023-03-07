@@ -8,15 +8,6 @@ import { parseMultipartData } from "@strapi/utils";
 export default factories.createCoreController(
     "api::reservation.reservation",
     ({ strapi }) => ({
-        async finds(ctx) {
-        let reservation = await strapi.entityService.findMany(
-            "api::reservation.reservation",
-            {
-            populate: { user: true },
-            }
-        );
-        return reservation;
-        },
         async delete(ctx) {
         const entityId = ctx.params.id;
         let entity;
