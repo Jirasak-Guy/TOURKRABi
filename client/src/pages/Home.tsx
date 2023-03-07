@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react';
 import LoginPopup from '../components/loginform';
 import SignupPopup from '../components/signupform';
 import Footer from '../components/footer';
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import { useAuthContext } from '../context/AuthContext';
+import { API, API_URL } from '../constant';
+import { getToken, removeToken } from '../helpers';
+import { useNavigate } from 'react-router-dom';
 
 import './Home.css';
 
@@ -10,6 +16,40 @@ function Home() {
     const [isFixed, setIsFixed] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
+    const { user } = useAuthContext();
+    const [avatar, setAvatar] = useState<string>();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const navigate = useNavigate();
+
+    const fetchProfiles = async () => {
+        try {
+            const response = await fetch(`${API}/users/me?populate[Avatar][fields][0]=url`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${getToken()}`,
+                }
+            })
+            const data = await response.json();
+            setAvatar(API_URL + data.Avatar.url)
+        } catch (error: any) {
+            setAvatar("https://static.thenounproject.com/png/363633-200.png")
+        }
+    };
+
+    useEffect(() => {
+        if (user) {
+            fetchProfiles();
+        }
+    }, [user]);
+
+    const handleOpenMenu = (event: any) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -92,6 +132,14 @@ function Home() {
         setShowSignup(false);
     }
 
+    const handleLogout = async () => {
+        setAnchorEl(null);
+        await removeToken();
+        window.location.reload();
+    };
+
+    const isUser = (localStorage.getItem("jwt")) ? true : false
+
     return (
         <div className="page-container">
             <header id="navbar" className={headerClassName}>
@@ -110,14 +158,50 @@ function Home() {
                     </ul>
                 </nav>
                 <div className="nav-box-center" />
-                <nav className="nav-box-right">
-                    <ul className="menu-right">
-                        <li><a href='#login' onClick={handleLoginClick}>ลงชื่อเข้าใช้</a></li>
-                        {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
-                        <li><a href='#register' onClick={handleSignupClick}>สมัครสมาชิก</a></li>
-                        {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
-                    </ul>
-                </nav>
+                {!isUser ? (
+                    <nav className="nav-box-right">
+                        <ul className="menu-right">
+                            <li><a href='#login' onClick={handleLoginClick}>ลงชื่อเข้าใช้</a></li>
+                            {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                            <li><a href='#register' onClick={handleSignupClick}>สมัครสมาชิก</a></li>
+                            {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+                        </ul>
+                    </nav>
+                ) : (
+                    <Box sx={{ width: '30%', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                        <p className='username-text'>{user?.username}</p>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenMenu}
+                            color="inherit"
+                        >
+                            <Avatar src={avatar} />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorEl)}
+                            onClose={handleCloseMenu}
+                        >
+                            <MenuItem onClick={() => { navigate('/profile') }}>Profile</MenuItem>
+                            <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
+                        </Menu>
+                    </Box>
+                )
+                }
+
             </header>
             <section id="section01" className="box1-container">
                 <div className="box1-image-left" />

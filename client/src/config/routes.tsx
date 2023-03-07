@@ -12,7 +12,7 @@ const AppRoutes = () => {
             <Route path="onedaytrip" element={<Tour />} />
             <Route path="packagetrip" element={<Tour />} />
             <Route path="tour/:id" element={<Tourreview />} />
-            <Route path="booking" element={getToken() ? <Profilepage /> : <Home />} />
+            <Route path="profile" element={getToken() ? <Profilepage /> : <Home />} />
         </Routes>
     );
 };

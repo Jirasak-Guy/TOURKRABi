@@ -114,8 +114,6 @@ function SignupPopup(props: SignupPopupProps) {
                     </div>
                     <button type="submit" className="submit-button-sigup" onClick={handleSignup}>สมัครสมาชิก</button>
                     <label>มีบัญชีผู้ใช้อยู่แล้ว? <a href='#login' onClick={props.onLoginLinkClick}>ลงชื่อเข้าใช้</a></label>
-                    <div className="google-login">
-                    </div>
                 </ div>
             </div>
         </div>
