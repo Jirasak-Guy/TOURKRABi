@@ -5,8 +5,8 @@ import Footer from '../components/footer';
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import { useAuthContext } from '../context/AuthContext';
-import { API, API_URL } from '../constant';
-import { getToken, removeToken } from '../helpers';
+import { API_URL } from '../constant';
+import { removeToken } from '../helpers';
 import { useNavigate } from 'react-router-dom';
 
 import './Home.css';
@@ -17,31 +17,8 @@ function Home() {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
     const { user } = useAuthContext();
-    const [avatar, setAvatar] = useState<string>();
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
-
-    const fetchProfiles = async () => {
-        try {
-            const response = await fetch(`${API}/users/me?populate[Avatar][fields][0]=url`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${getToken()}`,
-                }
-            })
-            const data = await response.json();
-            setAvatar(API_URL + data.Avatar.url)
-        } catch (error: any) {
-            setAvatar("https://static.thenounproject.com/png/363633-200.png")
-        }
-    };
-
-    useEffect(() => {
-        if (user) {
-            fetchProfiles();
-        }
-    }, [user]);
 
     const handleOpenMenu = (event: any) => {
         setAnchorEl(event.currentTarget);
@@ -178,7 +155,7 @@ function Home() {
                             onClick={handleOpenMenu}
                             color="inherit"
                         >
-                            <Avatar src={avatar} />
+                            <Avatar src={API_URL + user?.Avatar.url} />
                         </IconButton>
                         <Menu
                             id="menu-appbar"

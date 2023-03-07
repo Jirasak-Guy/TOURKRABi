@@ -70,6 +70,7 @@ function SignupPopup(props: SignupPopupProps) {
                     icon: 'success',
                     title: 'สมัครสมาชิกสำเร็จ!',
                     showConfirmButton: false,
+                    confirmButtonColor: '#8fce00',
                     timer: 1500
                 });
             } else if (!userInfo.username && !userInfo.password && !userInfo.email) {

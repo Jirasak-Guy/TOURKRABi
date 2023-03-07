@@ -55,7 +55,7 @@ function Tourspages() {
         <div>
             <Appbar></Appbar>
             <Box>
-                <img src={imgpath} width="100%" />
+                <img src={imgpath} width="100%" alt='not found'/>
             </Box>
             <TextField
                 style={{ margin: '0.75% 0% 0% 1.5% ' }}
