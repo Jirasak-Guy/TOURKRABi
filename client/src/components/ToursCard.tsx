@@ -56,7 +56,7 @@ function TourCard(props: Prop) {
                             </Typography>
                         </Box>
                     </CardContent>
-                </CardActionArea>
+                
                 <CardActions sx={{ justifyContent: 'center' }}>
                     <Box
                         sx={{
@@ -83,6 +83,7 @@ function TourCard(props: Prop) {
                         </Button>
                     </Box>
                 </CardActions>
+                </CardActionArea>
             </Card>
         </Box>
     )
