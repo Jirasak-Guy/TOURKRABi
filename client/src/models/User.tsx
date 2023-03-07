@@ -7,6 +7,7 @@ export default interface UserData {
     }
     reservations: [
         {
+            id: number;
             reservation_date: Date;
             reservation_expire_date: Date;
             total_price: number;
