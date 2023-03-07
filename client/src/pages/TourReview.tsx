@@ -132,6 +132,33 @@ function Tourreview() {
                     }}>รีวิว</Typography>
             </Box>
             <ReviewCard></ReviewCard>
+            <Box
+                sx={{
+                    backgroundColor: ismax ? '#FF0000' : '#F0298A',
+                    position: 'fixed',
+                    bottom: '5%',
+                    right: '2%',
+                    borderRadius: '50px',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    display:'flex',
+                }}
+            >
+                <Button
+                    sx={{
+                        color: 'white',
+                        fontSize: '20px',
+                        borderRadius: '30px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        justifyItems: 'center',
+                        margin:'5px'
+                    }}
+                >
+                    {ismax ? 'เต็ม' : `จอง ${data?.attributes.current_participate}/${data?.attributes.maximun_participate}`}
+                    <img src="../people.png" width={'30'} height={'30'} />
+                </Button>
+            </Box>
         </Box >
     )
 
