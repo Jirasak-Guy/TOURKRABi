@@ -58,22 +58,30 @@ function TourCard(props: Prop) {
                     </CardContent>
                 </CardActionArea>
                 <CardActions sx={{ justifyContent: 'center' }}>
-                    {maxbooking ?
-                        <Box sx={{ backgroundColor: '#FF0000', borderRadius: '50px' }}>
-                            <Button sx={{ color: 'white', fontSize: '20px', borderRadius: '30px' }}>
-                                <Box sx={{ backgroundColor: '#FF0000', height: '20px', width: '30px', }} />
-                                เต็ม
-                                <Box sx={{ backgroundColor: '#FF0000', height: '20px', width: '30px', }} />
-                            </Button>
-                        </Box>
-                        :
-                        <Box sx={{ backgroundColor: '#F0298A', borderRadius: '50px' }}>
-                            <Button sx={{ color: 'white', fontSize: '20px', borderRadius: '30px' }}>
-                                <Box sx={{ backgroundColor: '#F0298A', height: '20px', width: '30px', }} />
-                                จอง &nbsp;{tour.attributes.current_participate}/{tour.attributes.maximun_participate}&nbsp;
-                                <img src='../people.png' width={'30'} height={'30'} />
-                            </Button>
-                        </Box>}
+                    <Box
+                        sx={{
+                            backgroundColor: maxbooking ? '#FF0000' : '#F0298A',
+                            borderRadius: '50px',
+                            justifyItems: 'center',
+                            alignItems: 'center',
+                            display: 'flex',
+                        }}
+                    >
+                        <Button
+                            sx={{
+                                color: 'white',
+                                fontSize: '20px',
+                                borderRadius: '30px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                justifyItems: 'center',
+                                margin: '5px'
+                            }}
+                        >
+                            {maxbooking ? 'เต็ม' : `จอง ${tour?.attributes.current_participate}/${tour?.attributes.maximun_participate}`}
+                            <img src="../people.png" width={'30'} height={'30'} />
+                        </Button>
+                    </Box>
                 </CardActions>
             </Card>
         </Box>
