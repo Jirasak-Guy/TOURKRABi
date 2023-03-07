@@ -16,7 +16,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const fetchLoggedInUser = async (token: string) => {
         try {
-            const response = await fetch(`${API}/users/me`, {
+            const response = await fetch(`${API}/users/me?populate=reservations.tour`, {
                 headers: { Authorization: `${BEARER} ${token}` },
             });
             const data = await response.json();
