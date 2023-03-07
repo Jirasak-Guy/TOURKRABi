@@ -73,6 +73,7 @@ function LoginPopup(props: LoginPopupProps) {
                             icon: 'success',
                             title: `ลงชื่อเข้าใช้สำเร็จ!\nสวัสดี ${data.user.username}`,
                             showConfirmButton: false,
+                            confirmButtonColor: '#8fce00',
                             timer: 1500
                         });
                         window.location.reload();
