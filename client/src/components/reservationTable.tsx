@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import React from "react";
 import Swal from "sweetalert2";
 import { BEARER } from "../constant";
