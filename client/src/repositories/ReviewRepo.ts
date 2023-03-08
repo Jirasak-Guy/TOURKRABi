@@ -7,7 +7,7 @@ export class ReviewRepo implements IRepository<Review> {
     urlPrefix = "http://localhost:1338/api/reviews"
 
     async getAll(): Promise<Review[] | null> {
-        const resp = await fetch(`${this.urlPrefix}?populate=*`)
+        const resp = await fetch(`${this.urlPrefix}?populate[author][fields][0]=username`)
         const data = await resp.json()
         return data.data
     }

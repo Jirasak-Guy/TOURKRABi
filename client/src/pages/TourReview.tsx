@@ -1,6 +1,6 @@
-import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
+import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow, Button, autocompleteClasses } from "@mui/material";
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import AppBar from "../components/myAppBar";
 import Repo from '../repositories';
 import DetailHead from "../components/DetailHead";
@@ -20,7 +20,7 @@ function Tourreview() {
             const Tours = await Repo.TourRepo.get(id);
             if (Tours) {
                 setData(Tours)
-            }else{
+            } else {
                 navigate('/')
             }
         }
@@ -123,17 +123,17 @@ function Tourreview() {
                 </Typography>
             </Box>
             <Box>
-                <Typography
-                    className="detailhead"
+                <Typography className="detailhead"
                     sx={{
                         fontSize: '35px',
                         marginTop: '30px',
                         marginLeft: '15px',
                         paddingLeft: '50px',
                         paddingRight: '50px',
-                    }}>รีวิว</Typography>
+                    }}
+                >รีวิว</Typography>
             </Box>
-            <ReviewCard></ReviewCard>
+            <ReviewCard />
             <Box
                 sx={{
                     backgroundColor: ismax ? '#FF0000' : '#F0298A',
@@ -143,7 +143,7 @@ function Tourreview() {
                     borderRadius: '50px',
                     justifyItems: 'center',
                     alignItems: 'center',
-                    display:'flex',
+                    display: 'flex',
                 }}
             >
                 <Button
@@ -154,11 +154,11 @@ function Tourreview() {
                         display: 'flex',
                         justifyContent: 'center',
                         justifyItems: 'center',
-                        margin:'5px'
+                        margin: '5px'
                     }}
                 >
                     {ismax ? 'เต็ม' : `จอง ${data?.attributes.current_participate}/${data?.attributes.maximun_participate}`}
-                    <img src="../people.png" width={'30'} height={'30'} />
+                    <img src="../people.png" width={'30'} height={'30'} alt="not found" />
                 </Button>
             </Box>
         </Box >

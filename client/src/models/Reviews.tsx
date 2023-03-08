@@ -3,5 +3,12 @@ export default interface Review {
     attributes: {
         rating: number
         comment: string
+        author: {
+            data: {
+                attributes: {
+                    username: string
+                }
+            }
+        }
     }
 }
