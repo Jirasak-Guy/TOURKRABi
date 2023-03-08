@@ -4,7 +4,7 @@ import Tour from "../models/Tours";
 import Repo from '../repositories';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from "../context/AuthContext";
-import StarIcon from '@material-ui/icons/Star';
+import Avatar from "./avatar";
 
 
 interface Prop {
@@ -13,12 +13,12 @@ interface Prop {
 
 function ReviewCard(props: Prop) {
 
-    const [review, setReview] = useState<Review>();
+    const [review, setReview] = useState<Tour>();
     const [rating, setRating] = useState(0);
     const id = props.tour.id.toString();
     const fetchReview = async () => {
         if (props) {
-            const Tours = await Repo.ReviewRepo.get(id);
+            const Tours = await Repo.TourRepo.getReview(id);
             if (Tours) {
                 setReview(Tours)
             }
@@ -45,8 +45,9 @@ function ReviewCard(props: Prop) {
         }}>
             <Box sx={{ mt: 2, }}>
                 {Array.isArray(review?.attributes.reviews.data) &&
-                    review?.attributes.reviews.data.map((data) => (
-                        <Box sx={{ mb: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', padding: '10px', borderRadius: "15px" }}>
+                    review?.attributes.reviews.data.map((data,index) => (
+                        <Box key={index} sx={{ mb: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', padding: '10px', borderRadius: "15px" }}>
+                            <Avatar ID = {data.attributes.author.data.id}></Avatar>
                             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
                                 {data.attributes.author.data.attributes.username}
                             </Typography>
