@@ -1,5 +1,5 @@
 import { Card } from "@mui/material";
-import { Box, CardActions, Typography, Button, CardMedia, CardContent, CardActionArea, CardHeader } from '@mui/material';
+import { Box, CardActions, Typography, Button, CardMedia, CardContent, CardActionArea } from '@mui/material';
 import Tour from "../models/Tours";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +42,7 @@ function TourCard(props: Prop) {
                                     </div>
                                     :
                                     <div>
-                                        {(tour.attributes.price_package != undefined) &&
+                                        {(tour.attributes.price_package !== undefined) &&
                                             <div>
                                                 {(tour.attributes.price_package[0]) &&
                                                     <div>
@@ -56,33 +56,33 @@ function TourCard(props: Prop) {
                             </Typography>
                         </Box>
                     </CardContent>
-                
-                <CardActions sx={{ justifyContent: 'center' }}>
-                    <Box
-                        sx={{
-                            backgroundColor: maxbooking ? '#FF0000' : '#F0298A',
-                            borderRadius: '50px',
-                            justifyItems: 'center',
-                            alignItems: 'center',
-                            display: 'flex',
-                        }}
-                    >
-                        <Button
+
+                    <CardActions sx={{ justifyContent: 'center' }}>
+                        <Box
                             sx={{
-                                color: 'white',
-                                fontSize: '20px',
-                                borderRadius: '30px',
-                                display: 'flex',
-                                justifyContent: 'center',
+                                backgroundColor: maxbooking ? '#FF0000' : '#F0298A',
+                                borderRadius: '50px',
                                 justifyItems: 'center',
-                                margin: '5px'
+                                alignItems: 'center',
+                                display: 'flex',
                             }}
                         >
-                            {maxbooking ? 'เต็ม' : `จอง ${tour?.attributes.current_participate}/${tour?.attributes.maximun_participate}`}
-                            <img src="../people.png" width={'30'} height={'30'} />
-                        </Button>
-                    </Box>
-                </CardActions>
+                            <Button
+                                sx={{
+                                    color: 'white',
+                                    fontSize: '20px',
+                                    borderRadius: '30px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    justifyItems: 'center',
+                                    margin: '5px'
+                                }}
+                            >
+                                {maxbooking ? 'เต็ม' : `จอง ${tour?.attributes.current_participate}/${tour?.attributes.maximun_participate}`}
+                                <img src="../people.png" width={'30'} height={'30'} alt="not found" />
+                            </Button>
+                        </Box>
+                    </CardActions>
                 </CardActionArea>
             </Card>
         </Box>
