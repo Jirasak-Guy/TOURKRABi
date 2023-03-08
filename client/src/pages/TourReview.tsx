@@ -138,11 +138,12 @@ function Tourreview() {
                         marginLeft: '15px',
                         paddingLeft: '50px',
                         paddingRight: '50px',
+                        marginBottom:'30px'
                     }}
                 >รีวิว</Typography>
             </Box>
-            <Box>{(id != undefined)?
-                <ReviewCard id= {id} />
+            <Box>{(data)?
+                <ReviewCard tour= {data} />
                 :
                 <Box>
                     No Review

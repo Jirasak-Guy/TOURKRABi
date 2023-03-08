@@ -4,7 +4,7 @@ import axios from "axios";
 
 export class ReviewRepo implements IRepository<Review> {
 
-    urlPrefix = "http://localhost:1338/api/tours"
+    urlPrefix = "http://localhost:1338/api/reviews"
 
     async getAll(id : string): Promise<Review[] | null> {
         const resp = await fetch(`${this.urlPrefix}?populate=*`)
@@ -13,7 +13,7 @@ export class ReviewRepo implements IRepository<Review> {
     }
 
     async get(id: string): Promise<Review | null> {
-        const resp = await fetch(`${this.urlPrefix}/${id}?populate[reviews][populate]=author`)
+        const resp = await fetch(`http://localhost:1338/api/tours/${id}?populate[reviews][populate]=author`)
         const data = await resp.json()
         return data.data
       }
