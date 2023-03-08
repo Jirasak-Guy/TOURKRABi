@@ -1,26 +1,28 @@
 import { Box, Typography } from '@mui/material';
-import Reviews from "../models/Reviews";
+import Review from "../models/Reviews";
 import Repo from '../repositories';
 import { useEffect, useState } from 'react';
-import { Result } from 'antd';
 
-function ReviewCard() {
-    const [review, setReview] = useState<Reviews[]>([]);
+
+interface Prop {
+    id: string;
+}
+
+function ReviewCard(props: Prop) {
+
+    const [review, setReview] = useState<Review>();
 
     const fetchReview = async () => {
-        const result = await Repo.ReviewRepo.getAll()
-        if (result) {
-            setReview(result);
+        if (props) {
+            const Tours = await Repo.ReviewRepo.get(props.id);
+            if (Tours) {
+                setReview(Tours)
+            }
         }
     }
-
     useEffect(() => {
-        fetchReview()
-    }, [])
-
-    review.forEach(element => {
-        console.log(element.attributes.author.data.attributes.username)
-    });
+        fetchReview();
+    }, []);
 
     return (
         <Box sx={{
@@ -34,25 +36,21 @@ function ReviewCard() {
             borderRadius: "15px",
         }}>
             <Box>
-                {review.map((review) => (
-                    <Box key={review.id} sx={{
-                        padding: '25px',
-                        fontSize: '35px',
-                        display: 'flex',
-                        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                        textAlign: 'justify',
-                        maxWidth: '100%',
-                        margin: 'auto',
-                        borderRadius: "15px",
-                    }}>
-                        <Typography variant="h6">{review.attributes.author.data.attributes.username}</Typography>
-                        <Typography variant="body1">{review.attributes.rating}</Typography>
-                        <Typography variant="subtitle2">{review.attributes.comment}</Typography>
-                    </Box>
-                ))}
-                {review.length === 0 && <Result status="404" title="No Reviews Found" />}
+                {Array.isArray(review?.attributes.reviews.data) &&
+                    review?.attributes.reviews.data.map((data) => (
+                        <Box>
+                            <Typography>{data.attributes.author.data.attributes.username}</Typography>
+                            <Typography>{data.attributes.comment}</Typography>
+                            <Typography>{data.attributes.rating}</Typography>
+                        </Box>
+                    ))}
+                <Box>
+                    
+                </Box>
             </Box>
-        </Box>
+
+
+        </Box >
     )
 }
 

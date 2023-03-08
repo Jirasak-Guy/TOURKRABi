@@ -35,7 +35,15 @@ function Tourreview() {
     return (
         <Box>
             <AppBar></AppBar>
-            <DetailHead tourdata={data} />
+            <Box>{(data != undefined)?
+                <DetailHead tourdata={data} />
+                :
+                <Box>
+                    Error
+                </Box>
+            }
+            </Box>
+            
             <Box>
                 <Typography className="detailhead"
                     sx={{
@@ -133,7 +141,15 @@ function Tourreview() {
                     }}
                 >รีวิว</Typography>
             </Box>
-            <ReviewCard />
+            <Box>{(id != undefined)?
+                <ReviewCard id= {id} />
+                :
+                <Box>
+                    No Review
+                </Box>
+            }
+            </Box>
+
             <Box
                 sx={{
                     backgroundColor: ismax ? '#FF0000' : '#F0298A',
