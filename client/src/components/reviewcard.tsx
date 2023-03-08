@@ -43,48 +43,61 @@ function ReviewCard(props: Prop) {
             margin: 'auto',
             borderRadius: "15px",
         }}>
-            <Box sx={{ mt: 2, }}>
+            <Box sx={{ mt: 2 }}>
                 {Array.isArray(review?.attributes.reviews.data) &&
-                    review?.attributes.reviews.data.map((data,index) => (
-                        <Box key={index} sx={{ mb: 2, boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', padding: '10px', borderRadius: "15px" }}>
-                            <Avatar ID = {data.attributes.author.data.id}></Avatar>
-                            <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                                {data.attributes.author.data.attributes.username}
-                            </Typography>
-                            <Typography variant="body1" sx={{ mb: 1 }}>
-                                {data.attributes.comment}
-                            </Typography>
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                Rating: {data.attributes.rating}
-                            </Typography>
+                    review?.attributes.reviews.data.map((data, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'flex-start',
+                                mb: 2,
+                                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+                                padding: '10px',
+                                borderRadius: '15px',
+                            }}
+                        >
+                            <Avatar ID={data.attributes.author.data.id} />
+                            <Box sx={{ ml: 2, flexGrow: 1 }}>
+                                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
+                                    {data.attributes.author.data.attributes.username}
+                                </Typography>
+                                <Typography variant="body1" sx={{ mb: 1 }}>
+                                    {data.attributes.comment}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                    Rating: {data.attributes.rating}
+                                </Typography>
+                            </Box>
                         </Box>
                     ))}
-                
-                <form onSubmit={handleSubmit}>
-                    <Rating
-                        name="rating"
-                        value={rating}
-                        onChange={(event, newValue) => {
-                            setRating(newValue as number);
-                        }}
-                        precision={1}
-                    />
-                    <Grid container spacing={2} alignItems="center">
-                        <Grid item xs={9}>
-                            <TextField label="Enter your review" fullWidth />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button variant="contained" color="primary" type="submit">Submit</Button>
-                        </Grid>
-                    </Grid>
-                </form>
-                <form>
-                    
-                </form>
             </Box>
 
+            <form onSubmit={handleSubmit}>
+                <Rating
+                    name="rating"
+                    value={rating}
+                    onChange={(event, newValue) => {
+                        setRating(newValue as number);
+                    }}
+                    precision={1}
+                />
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={9}>
+                        <TextField label="Enter your review" fullWidth />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="contained" color="primary" type="submit">Submit</Button>
+                    </Grid>
+                </Grid>
+            </form>
+            <form>
 
-        </Box >
+            </form>
+        </Box>
+
+
     )
 }
 
