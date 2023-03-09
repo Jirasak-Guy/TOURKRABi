@@ -2,12 +2,27 @@ import Appbar from "../components/myAppBar";
 import { useAuthContext } from '../context/AuthContext';
 import { API_URL } from '../constant';
 import DataTable from "../components/reservationTable";
+import { useState, useEffect } from "react";
+import reservation from "../models/Reservation";
+import repositories from "../repositories";
 
 import "./Profile.css"
 
 function Profilepage() {
 
     const { user } = useAuthContext()
+    const [reservations, setReservations] = useState<reservation[]>();
+
+    const fetchReservations = async () => {
+        const response = await repositories.ReserveRepo.getAll()
+        if (response) {
+            setReservations(response);
+        }
+    }
+
+    useEffect(() => {
+        fetchReservations();
+    }, [])
 
     return (
         <div>
@@ -44,10 +59,13 @@ function Profilepage() {
                             <th>สถานะ</th>
                         </tr>
                     </thead>
-                    {user?.reservations !== undefined &&
-                        user?.reservations.map((reservation) => {
-                            return <DataTable userReservation={reservation} />;
-                        })}
+                    {reservations !== undefined &&
+                        reservations.map((data) => {
+                            if (data?.attributes?.user?.data?.id === user?.id) {
+                                return <DataTable userRevserv={data} />
+                            } return null;
+                        })
+                    }
                 </table>
             </div>
         </div>

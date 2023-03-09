@@ -107,3 +107,71 @@ table tr th {
   border: 2px solid black;
   background-color: lightgrey;
 }
+
+@media screen and (max-width: 810px) {
+
+  .Profile-Card {
+    height: 22vh;
+  }
+
+  .useravatar1 {
+    width: 125px;
+    height: 125px;
+    margin-block: 42px;
+    margin-inline: 21px;
+  }
+
+  .info-container {
+    font-size: 14px;
+  }
+
+  .info-container label{
+    width: 60px;
+  }
+
+  .box-info {
+    width: 300px;
+    height: 50px;
+  }
+
+  .History-Booking {
+    font-size: 18px;
+    height: 65px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+
+  .Profile-Card{
+    height: 22vh;
+  }
+
+  .useravatar1 {
+    width: 125px;
+    height: 125px;
+    margin-block: 21px;
+    margin-inline: 8px;
+  }
+
+  .info-container{
+    font-size: 9px;
+  }
+
+  .box-info {
+    width: 110px;
+    height: 35px;
+  }
+
+  .History-Booking {
+    font-size: 14px;
+    height: 55px;
+    width: 270px;
+  }
+
+  table {
+    font-size: 10px;
+    width: 45vh;
+    height: 5vh;
+  }
+
+}

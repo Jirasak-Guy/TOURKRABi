@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { useAuthContext } from "../context/AuthContext";
 import { API } from "../constant";
 import { setToken } from "../helpers";
+import { useEffect } from 'react';
 
 import './loginform.css';
 
@@ -17,6 +18,21 @@ function LoginPopup(props: LoginPopupProps) {
 
     const [userInfo, setUserInfo] = useState(initialUser)
     const { setUser } = useAuthContext();
+    const [windowwidth, setWindowwidth] = useState(window.innerWidth);
+
+    const isPC = (windowwidth >= 830) ? true : false
+
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowwidth(window.innerWidth);
+        }
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = target;
@@ -102,7 +118,7 @@ function LoginPopup(props: LoginPopupProps) {
     return (
         <div className="popup-layout-login">
             <div className="popup-overlay-login" onClick={props.onClose} />
-            <div className="image-login" />
+            {isPC &&<div className="image-login" />}
             <div className="popup-container-login">
                 <div className="box-container-login">
                     <div className="header-box-login">
@@ -119,7 +135,7 @@ function LoginPopup(props: LoginPopupProps) {
                     </div>
                     <div className="form-element-login">
                         <input type="checkbox" id='remember-me' />
-                        <label> จดจำฉันไว้</label>
+                        <h5> จดจำฉันไว้</h5>
                     </div>
                     <button type="submit" className="submit-button-login" onClick={handleLoggin} data-testid="login-button">เข้าสู่ระบบ</button>
                     <label>ยังไม่มีบัญชีผู้ใช้? <a href='#register' onClick={props.onSignupLinkClick} >สมัครสมาชิก</a></label>
