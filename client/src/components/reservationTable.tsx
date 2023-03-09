@@ -2,6 +2,9 @@ import React from "react";
 import Swal from "sweetalert2";
 import reservation from "../models/Reservation";
 import repositories from "../repositories";
+import conf from '../config/conf';
+import { BEARER } from "../constant";
+import { getToken } from "../helpers";
 
 interface Props {
     userRevserv: reservation
@@ -30,6 +33,7 @@ function DataTable(props: Props) {
             cancelButtonText: 'ไม่'
         }).then(async (result) => {
             if (result.isConfirmed) {
+                await updateParticipate(props.userRevserv)
                 await repositories.ReserveRepo.delete(props.userRevserv.id)
                 await Swal.fire('ยกเลิกการจองเสร็จสิ้น')
                 window.location.reload()
@@ -52,11 +56,40 @@ function DataTable(props: Props) {
             cancelButtonText: 'ยกเลิกการจอง'
         }).then(async (result) => {
             if (!result.isConfirmed) {
+                await updateParticipate(props.userRevserv)
                 await repositories.ReserveRepo.delete(props.userRevserv.id)
                 await Swal.fire('ยกเลิกการจองเสร็จสิ้น')
                 window.location.reload()
             };
         })
+    }
+
+    const updateParticipate = (reservation: reservation) => {
+        const token = getToken();
+        if (token) {
+            const UserData = token.split('.');
+            const User = JSON.parse(atob(UserData[1]));
+            const new_current_participate = reservation.attributes.tour.data.attributes.current_participate - 1
+            if (User.id) {
+                if (reservation) {
+                    fetch(`${conf.apiPrefix}/api/tours/${reservation.attributes.tour.data.id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `${BEARER} ${token}`
+                        },
+                        body: JSON.stringify({
+                            data: {
+                                current_participate: new_current_participate
+                            }
+                        })
+                    })
+                }else{
+                    console.log('help me pls')
+                }
+
+            }
+        }
     }
 
     return (
