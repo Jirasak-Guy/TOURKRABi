@@ -35,7 +35,7 @@ function AcceptBookingPopup(props: Props) {
                         const UserID = [User.id]
                         const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip?.price : PKGprice
                         const new_current_participate = data.attributes.current_participate+1
-                        const updateparticipate = await fetch(`${conf.apiPrefix}/api/tours/${data.id}`, {
+                        await fetch(`${conf.apiPrefix}/api/tours/${data.id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -47,7 +47,7 @@ function AcceptBookingPopup(props: Props) {
                                 }
                             })
                         })
-                        const reservations = await fetch(`${conf.apiPrefix}/api/reservations/`, {
+                        await fetch(`${conf.apiPrefix}/api/reservations/`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -57,6 +57,7 @@ function AcceptBookingPopup(props: Props) {
                                 data: {
                                     total_price: Price,
                                     payment_status: false,
+                                    reservation_expire_date: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000),
                                     tour: {
                                         set: Tourdata
                                     },
