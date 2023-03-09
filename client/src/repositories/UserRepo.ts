@@ -1,9 +1,10 @@
 import { IRepository } from "./IRepository";
 import UserData from "../models/User";
+import conf from "../config/conf";
 
 export class UserRepo implements IRepository<UserData> {
 
-    urlPrefix = "http://localhost:1338/api/users"
+    urlPrefix = `${conf.apiPrefix}/api/users`
 
     async getAll(): Promise<UserData[] | null> {
         const resp = await fetch(`${this.urlPrefix}?populate=*`)
@@ -11,7 +12,7 @@ export class UserRepo implements IRepository<UserData> {
         return data.data
     }
     async get(id: string): Promise<UserData | null> {
-        const resp = await fetch(`http://localhost:1338/api/users/${id}?populate=*`)
+        const resp = await fetch(`${this.urlPrefix}/${id}?populate=*`)
         const data = await resp.json()
         return data
     }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, ReactNode } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { message } from "antd";
-import { API, BEARER } from "../../constant";
+import { BEARER } from "../../constant";
 import { getToken } from "../../helpers";
 import UserData from "../../models/User";
+import conf from "../../config/conf";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -16,7 +17,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const fetchLoggedInUser = async (token: string) => {
         try {
-            const response = await fetch(`${API}/users/me?populate=Avatar`, {
+            const response = await fetch(`${conf.apiPrefix}/api/users/me?populate=Avatar`, {
                 headers: { Authorization: `${BEARER} ${token}` },
             });
             const data = await response.json();

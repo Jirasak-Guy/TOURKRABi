@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAuthContext } from "../context/AuthContext";
-import { API } from "../constant";
+import conf from '../config/conf';
 import { setToken } from "../helpers";
 import { useEffect } from 'react';
 
@@ -69,7 +69,7 @@ function LoginPopup(props: LoginPopupProps) {
         try {
             if (userInfo.identifier && userInfo.password) {
                 if (isValidEmail(userInfo.identifier)) {
-                    const response = await fetch(`${API}/auth/local`, {
+                    const response = await fetch(`${conf.apiPrefix}/auth/local`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

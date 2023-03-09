@@ -5,7 +5,7 @@ import Footer from '../components/footer';
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import { useAuthContext } from '../context/AuthContext';
-import { API_URL } from '../constant';
+import conf from '../config/conf';
 import { removeToken } from '../helpers';
 import { useNavigate } from 'react-router-dom';
 
@@ -155,7 +155,7 @@ function Home() {
                             onClick={handleOpenMenu}
                             color="inherit"
                         >
-                            <Avatar src={API_URL + user?.Avatar?.url} />
+                            <Avatar src={conf.apiPrefix + user?.Avatar?.url} />
                         </IconButton>
                         <Menu
                             id="menu-appbar"

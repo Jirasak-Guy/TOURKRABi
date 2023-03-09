@@ -2,12 +2,13 @@ import { IRepository } from "./IRepository";
 import reservation from "../models/Reservation";
 import { BEARER } from "../constant";
 import { getToken } from "../helpers";
+import conf from "../config/conf";
 
 const token = getToken()
 
 export class reservationRepo implements IRepository<reservation> {
 
-    urlPrefix = "http://localhost:1338/api/reservations"
+    urlPrefix = `${conf.apiPrefix}/api/reservations`
 
     async getAll(): Promise<reservation[] | null> {
         if (token) {

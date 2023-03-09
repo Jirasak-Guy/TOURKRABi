@@ -1,6 +1,6 @@
 import Appbar from "../components/myAppBar";
 import { useAuthContext } from '../context/AuthContext';
-import { API_URL } from '../constant';
+import conf from "../config/conf";
 import DataTable from "../components/reservationTable";
 import { useState, useEffect } from "react";
 import reservation from "../models/Reservation";
@@ -29,7 +29,7 @@ function Profilepage() {
             <Appbar />
             <div className="Box">
                 <div className="Profile-Card">
-                    <img className="useravatar1" src={API_URL + user?.Avatar.url} alt="Not found" />
+                    <img className="useravatar1" src={conf.apiPrefix + user?.Avatar.url} alt="Not found" />
                     <div className="info-container">
                         <div className="username-box">
                             <label>ชื่อผู้ใช้ :</label>

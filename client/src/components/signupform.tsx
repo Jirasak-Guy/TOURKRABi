@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { API } from "../constant";
+import conf from '../config/conf';
 import { useEffect } from 'react';
 
 import './signupform.css';
@@ -73,7 +73,7 @@ function SignupPopup(props: SignupPopupProps) {
     const handleSignup = async () => {
         try {
             if (userInfo.username && userInfo.password && userInfo.email) {
-                await fetch(`${API}/auth/local/register`, {
+                await fetch(`${conf.apiPrefix}/auth/local/register`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

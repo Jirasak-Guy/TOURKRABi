@@ -2,7 +2,7 @@ import { Box, Typography, Button, List, ListItemButton, ListItemText, Collapse }
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { useState } from "react";
 import Tour from "../models/Tours";
-import { API } from "../constant";
+import conf from "../config/conf";
 import './AcceptBookingPopup.css';
 import { BEARER } from "../constant";
 import { getToken } from "../helpers";
@@ -33,7 +33,7 @@ function AcceptBookingPopup(props: Props) {
                         const Tourdata = [data.id]
                         const UserID = [User.id]
                         const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip?.price : PKGprice
-                        const reservations = await fetch(`${API}/reservations/`, {
+                        const reservations = await fetch(`${conf.apiPrefix}/api/reservations/`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
