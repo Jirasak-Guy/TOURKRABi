@@ -38,7 +38,7 @@ services:
     volumes:
       - ./app:/srv/app
     ports:
-      - 127.0.0.1:8000:1338
+      - 127.0.0.1:8000:1337
     depends_on:
       - demo_mysql
     networks:
