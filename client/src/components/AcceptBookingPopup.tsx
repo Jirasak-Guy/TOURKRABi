@@ -6,6 +6,7 @@ import conf from "../config/conf";
 import './AcceptBookingPopup.css';
 import { BEARER } from "../constant";
 import { getToken } from "../helpers";
+import Swal from 'sweetalert2';
 
 interface Props {
     onClose: () => void;
@@ -65,7 +66,14 @@ function AcceptBookingPopup(props: Props) {
                                 }
                             })
                         })
-                        onClose()
+                        await Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: `ทำการจองเสร็จสิ้น`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        window.location.reload();
                     }
                 }
             }
