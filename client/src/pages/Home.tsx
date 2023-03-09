@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import LoginPopup from '../components/loginform';
 import SignupPopup from '../components/signupform';
 import Footer from '../components/footer';
-import {Box, IconButton, Menu, MenuItem,Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem, Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import Avatar from '@mui/material/Avatar';
 import { useAuthContext } from '../context/AuthContext';
@@ -201,42 +201,122 @@ function Home() {
                             </li>
                         </ul>
                     </nav>
-                ) : (
-                    <Box sx={{ width: '30%', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                        <p className='username-text'>{user?.username}</p>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenMenu}
-                            color="inherit"
-                        >
-                            <Avatar src={conf.apiPrefix + user?.Avatar?.url} />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorEl)}
-                            onClose={handleCloseMenu}
-                        >
-                            <MenuItem onClick={() => { navigate('/profile') }}>Profile</MenuItem>
-                            <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
-                        </Menu>
-                    </Box>
-                )
-                }
-
-            </header>
+                    <div className="nav-box-center" />
+                    {!isUser ? (
+                        <nav className="nav-box-right">
+                            <ul className="menu-right">
+                                <li><a href='#login' onClick={handleLoginClick}>ลงชื่อเข้าใช้</a></li>
+                                {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                                <li><a href='#register' onClick={handleSignupClick}>สมัครสมาชิก</a></li>
+                                {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+                            </ul>
+                        </nav>
+                    ) : (
+                        <Box sx={{ width: "5%", padding: "2%", paddingInline: "20%", display: "flex", alignItems: "center", paddingInlineEnd: "10%" }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenMenu}
+                                color="inherit"
+                            >
+                                <Avatar src={conf.apiPrefix + user?.Avatar.url} />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleCloseMenu}
+                            >
+                                <MenuItem onClick={() => { navigate('/profile') }}>Profile</MenuItem>
+                                <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
+                            </Menu>
+                        </Box>
+                    )
+                    }
+                </header>
+            ) : (
+                <Box sx={{
+                    width: "100%",
+                    backgroundColor: "#000",
+                    padding: "2%",
+                    paddingInline: "3%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                }}>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2, color: "#fff" }}
+                        onClick={() => setAnchorNav(true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Button
+                        size="large"
+                        aria-label="logo"
+                        onClick={() => navigate('/')}
+                        color="inherit"
+                    >
+                        <img src="../applogo.png" alt="(AppIcon)" width={"35%"} background-size={"auto 200%"} background-position={"center"} background-repeat={"no-repeat"} />
+                    </Button>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        sx={{ mr: 2, color: "#fff" }}
+                        onClick={handleOpenMenu}
+                    >
+                        <Avatar src={conf.apiPrefix + user?.Avatar.url} />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleCloseMenu}
+                    >
+                        {isUser ?
+                            <div>
+                                <MenuItem onClick={() => { navigate('/profile') }}>Profile</MenuItem>
+                                <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
+                            </div>
+                            :
+                            <div>
+                                <MenuItem onClick={handleLoginClick}>Log in</MenuItem>
+                                {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                                <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>
+                                {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+                            </div>
+                        }
+                    </Menu>
+                </Box>
+            )
+            }
             <section id="section01" className="box1-container">
                 <div className="box1-image-left" />
                 <div className="box1-image-center" />
