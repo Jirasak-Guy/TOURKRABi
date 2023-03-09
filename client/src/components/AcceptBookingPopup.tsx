@@ -21,7 +21,7 @@ function AcceptBookingPopup(props: Props) {
         setselectRoom(!selectRoom);
     };
 
-    const handleBooking = async () => {}
+    const handleBooking = async () => { }
 
     return (
         <Box
@@ -46,7 +46,46 @@ function AcceptBookingPopup(props: Props) {
                         {`" ${data.attributes.tour_name} "`}
                     </Typography>
                     <Typography variant="h3" textAlign={'center'}>
-                        ราคา
+                        {(data.attributes.tour_type === 'onedaytrip') ?
+                            <Typography
+                                variant="h3"
+                                sx={{
+                                    position: 'fixed',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%,-50%)',
+                                }}>
+                                {`ราคา ${data.attributes.price_onedaytrip?.price} บาท`}
+                            </Typography>
+                            :
+                            <div>
+                                {Array.isArray(data?.attributes.price_package) &&
+                                    data?.attributes.price_package.map((price) => (
+                                        <List component="div" disablePadding>
+                                            <ListItemButton
+                                                onClick={() => { }}
+                                                sx={{
+                                                    boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.5)',
+                                                }}
+                                            >
+                                                <ListItemText
+                                                    sx={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                    primary={`${price.room_class_hotel}`}
+                                                />
+                                                <ListItemText
+                                                    sx={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                    primary={`${price.price}  บาท`}
+                                                />
+                                            </ListItemButton>
+                                        </List>
+                                    ))
+                                }
+                            </div>
+                        }
                     </Typography>
                     <Box
                         sx={{
