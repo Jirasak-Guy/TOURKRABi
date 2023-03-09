@@ -13,14 +13,14 @@ interface Item {
 function Avatar(props: Item) {
     const [avatar, setAvatar] = useState<UserData>()
 
-    const userID = props.ID.toString()
+    const userID = props?.ID?.toString()
     const fetchAvatar = async () => {
         const result = await Repo.UserRepo.get(userID);
         if (result) {
             setAvatar(result)
         }
     }
-    const img = (avatar?.Avatar !== null) ? `http://localhost:1338${avatar?.Avatar.url}` : `http://localhost:1338/uploads/3135715_21e2a57770.png?updated_at=2023-03-08T23:12:05.848Z`;
+    const img = (avatar?.Avatar !== null) ? `http://localhost:1338${avatar?.Avatar?.url}` : `None Image`;
     useEffect(() => {
         fetchAvatar();
     }, []);
