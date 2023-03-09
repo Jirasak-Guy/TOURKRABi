@@ -1,5 +1,5 @@
-import { Box, Typography, TextField, Button, Grid, Rating,IconButton} from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { Box, Typography, TextField, Button, Grid, Rating, IconButton } from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 import Review from "../models/Reviews";
 import Tour from "../models/Tours";
 import Repo from '../repositories';
@@ -8,9 +8,20 @@ import { useAuthContext } from "../context/AuthContext";
 import Avatar from "./avatar";
 import StarRating from "./star";
 import Reviewdata from "../models/Reviewdata";
-import { useNavigate, useParams } from "react-router-dom";
 
-
+const styles = {
+    '&::-webkit-scrollbar': {
+      width: '8px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      borderRadius: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: '#f1f1f1',
+      borderRadius: '8px',
+    },
+  };
 
 interface Prop {
     tour: Tour;
@@ -18,7 +29,6 @@ interface Prop {
 
 function ReviewCard(props: Prop) {
     const { user } = useAuthContext()
-    const [showreview, setShowReview] = useState(false);
     const [review, setReview] = useState<Tour>();
     const [rating, setRating] = useState(0);
     const reviewRef = useRef<HTMLInputElement>(null)
@@ -46,18 +56,24 @@ function ReviewCard(props: Prop) {
             }
         }
     }
-    const handleReview = async () => {
+    const createReview = async () => {
         if (!user) {
             alert('Please log in to submit a review.');
         } else {
-
             await Repo.ReviewRepo.createReview(newReview)
+            fetchReview();
         }
     }
-    const handleEditReview = async () => { setShowReview(true) }
+
+    const deleteReview = async (id: string) => {
+        if (window.confirm('Are you sure you want to delete this review?')) {
+            await Repo.ReviewRepo.deleteReview(id);
+            fetchReview();
+        }
+    }
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        handleReview()
+        createReview()
         fetchReview();
     };
 
@@ -65,7 +81,7 @@ function ReviewCard(props: Prop) {
         fetchReview();
     }, []);
 
-    
+
 
     return (
         <Box sx={{
@@ -77,7 +93,7 @@ function ReviewCard(props: Prop) {
             margin: 'auto',
             borderRadius: "15px",
         }}>
-            <Box sx={{ mt: 2, }}>
+            <Box sx={{ mt: 2, overflowY:"scroll",height:"200px", paddingRight: '20px',...styles}}>
                 {Array.isArray(review?.attributes?.reviews?.data) &&
                     review?.attributes.reviews.data.map((data, index) => (
                         <Box
@@ -90,7 +106,8 @@ function ReviewCard(props: Prop) {
                                 padding: '10px',
                                 borderRadius: '15px',
                                 backgroundColor: '#E0E0E0',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                               
                             }}
                         >
                             <Avatar ID={data?.attributes?.author?.data?.id} />
@@ -106,8 +123,8 @@ function ReviewCard(props: Prop) {
                                 </Typography>
                             </Box>
                             {(data?.attributes?.author?.data?.id === user?.id) && (
-                                <IconButton>
-                                    <Edit />
+                                <IconButton onClick={() => deleteReview(data?.id.toString())}>
+                                    <Delete />
                                 </IconButton>
                             )}
                         </Box>
@@ -125,7 +142,7 @@ function ReviewCard(props: Prop) {
                 />
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={9}>
-                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} />
+                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} required/>
                     </Grid>
                     <Grid item xs={3}>
                         <Button variant="contained" color="primary" type="submit">Submit</Button>

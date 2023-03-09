@@ -7,6 +7,7 @@ import './AcceptBookingPopup.css';
 import { BEARER } from "../constant";
 import { getToken } from "../helpers";
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     onClose: () => void;
@@ -17,6 +18,7 @@ function AcceptBookingPopup(props: Props) {
     const [bookingroom, setbookingroom] = useState('กรุณาเลือกห้องพัก');
     const [PKGprice, setPKGprice] = useState(0);
     const [selectRoom, setselectRoom] = useState(false);
+    const navigate = useNavigate();
     const { data, onClose } = props;
 
     const handleSelectClick = () => {
@@ -35,7 +37,7 @@ function AcceptBookingPopup(props: Props) {
                         const UserID = [User.id]
                         const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip?.price : PKGprice
                         const new_current_participate = data.attributes.current_participate+1
-                        const updateparticipate = await fetch(`${conf.apiPrefix}/api/tours/${data.id}`, {
+                        await fetch(`${conf.apiPrefix}/api/tours/${data.id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -47,7 +49,7 @@ function AcceptBookingPopup(props: Props) {
                                 }
                             })
                         })
-                        const reservations = await fetch(`${conf.apiPrefix}/api/reservations/`, {
+                        await fetch(`${conf.apiPrefix}/api/reservations/`, {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -57,6 +59,7 @@ function AcceptBookingPopup(props: Props) {
                                 data: {
                                     total_price: Price,
                                     payment_status: false,
+                                    reservation_expire_date: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000),
                                     tour: {
                                         set: Tourdata
                                     },
@@ -73,7 +76,7 @@ function AcceptBookingPopup(props: Props) {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        window.location.reload();
+                        navigate('/profile')
                     }
                 }
             }

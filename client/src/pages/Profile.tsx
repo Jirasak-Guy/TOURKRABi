@@ -59,13 +59,14 @@ function Profilepage() {
                             <th>สถานะ</th>
                         </tr>
                     </thead>
-                    {reservations !== undefined &&
-                        reservations.map((data) => {
-                            if (data?.attributes?.user?.data?.id === user?.id) {
-                                return <DataTable userRevserv={data} />
-                            } return null;
-                        })
-                    }
+                    {reservations && reservations.map((data) => {
+                        if (!(data?.attributes?.payment_status) && (new Date(Date.now()).getTime() >= new Date(data?.attributes?.reservation_expire_date).getTime())) {
+                            repositories.ReserveRepo.delete(data?.id);
+                        } else if (data?.attributes?.user?.data?.id === user?.id) {
+                            return <DataTable userRevserv={data} />;
+                        }
+                        return null;
+                    })}
                 </table>
             </div>
         </div>
