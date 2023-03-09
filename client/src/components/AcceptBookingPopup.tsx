@@ -7,6 +7,7 @@ import './AcceptBookingPopup.css';
 import { BEARER } from "../constant";
 import { getToken } from "../helpers";
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     onClose: () => void;
@@ -17,6 +18,7 @@ function AcceptBookingPopup(props: Props) {
     const [bookingroom, setbookingroom] = useState('กรุณาเลือกห้องพัก');
     const [PKGprice, setPKGprice] = useState(0);
     const [selectRoom, setselectRoom] = useState(false);
+    const navigate = useNavigate();
     const { data, onClose } = props;
 
     const handleSelectClick = () => {
@@ -73,7 +75,7 @@ function AcceptBookingPopup(props: Props) {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        window.location.reload();
+                        navigate('/profile')
                     }
                 }
             }
