@@ -27,6 +27,7 @@ function ReviewCard(props: Prop) {
             const Tours = await Repo.TourRepo.getReview(id);
             if (Tours) {
                 setReview(Tours)
+                console.log(review)
             }
         }
     }
@@ -73,7 +74,7 @@ function ReviewCard(props: Prop) {
             borderRadius: "15px",
         }}>
             <Box sx={{ mt: 2, }}>
-                {Array.isArray(review?.attributes.reviews.data) &&
+                {Array.isArray(review?.attributes?.reviews?.data) &&
                     review?.attributes.reviews.data.map((data, index) => (
                         <Box
                             key={index}
@@ -88,16 +89,16 @@ function ReviewCard(props: Prop) {
                                 overflow: 'hidden'
                             }}
                         >
-                            <Avatar ID={data.attributes.author.data.id} />
+                            <Avatar ID={data?.attributes?.author?.data?.id} />
                             <Box sx={{ ml: 2, flexGrow: 1 }}>
                                 <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                                    {data.attributes.author.data.attributes.username}
+                                    {data?.attributes?.author?.data?.attributes?.username}
                                 </Typography>
                                 <Typography variant="body1" sx={{ mb: 1 }}>
-                                    {data.attributes.comment}
+                                    {data?.attributes?.comment}
                                 </Typography>
                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    <StarRating rating={data.attributes.rating} />
+                                    <StarRating rating={data?.attributes.rating} />
                                 </Typography>
                             </Box>
                         </Box>
