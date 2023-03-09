@@ -5,6 +5,7 @@ import Repo from '../repositories';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from "../context/AuthContext";
 import Avatar from "./avatar";
+import StarRating from "./star";
 
 
 interface Prop {
@@ -43,7 +44,7 @@ function ReviewCard(props: Prop) {
             margin: 'auto',
             borderRadius: "15px",
         }}>
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 2, }}>
                 {Array.isArray(review?.attributes.reviews.data) &&
                     review?.attributes.reviews.data.map((data, index) => (
                         <Box
@@ -53,9 +54,10 @@ function ReviewCard(props: Prop) {
                                 flexDirection: 'row',
                                 alignItems: 'flex-start',
                                 mb: 2,
-                                boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
                                 padding: '10px',
                                 borderRadius: '15px',
+                                backgroundColor: '#E0E0E0',
+                                overflow: 'hidden'
                             }}
                         >
                             <Avatar ID={data.attributes.author.data.id} />
@@ -67,7 +69,7 @@ function ReviewCard(props: Prop) {
                                     {data.attributes.comment}
                                 </Typography>
                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    Rating: {data.attributes.rating}
+                                    <StarRating rating={data.attributes.rating} />
                                 </Typography>
                             </Box>
                         </Box>
