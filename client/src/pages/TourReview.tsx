@@ -8,6 +8,7 @@ import Tour from "../models/Tours";
 import ReviewCard from "../components/reviewcard";
 import './TourReview.css'
 import AcceptBookingPopup from '../components/AcceptBookingPopup';
+import ReactMarkdown from 'react-markdown';
 
 function Tourreview() {
     const url = useParams()
@@ -65,10 +66,16 @@ function Tourreview() {
                 <Typography
                     className="detail"
                     sx={{
-                        fontSize: '24px',
                         marginTop: '30px',
                         textAlign: 'justify',
-                    }}>{data?.attributes.tour_detial}
+                    }}>
+                    {data?.attributes.tour_detial ?
+                        <ReactMarkdown>
+                            {data.attributes.tour_detial}
+                        </ReactMarkdown>
+                        :
+                        <h1>No detail</h1>
+                    }
                 </Typography>
             </Box>
             <Box sx={{ marginBottom: '30px' }}>
