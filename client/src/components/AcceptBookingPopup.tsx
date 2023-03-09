@@ -94,7 +94,11 @@ function AcceptBookingPopup(props: Props) {
                                                 <List component="div" disablePadding>
                                                     <ListItemButton
                                                         disabled={bookingroom === price.room_class_hotel}
-                                                        onClick={() => { }}
+                                                        onClick={() => {
+                                                            setbookingroom(price.room_class_hotel);
+                                                            setPKGprice(price.price)
+                                                            handleSelectClick();
+                                                        }}
                                                         sx={{
                                                             boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.5)',
                                                         }}
