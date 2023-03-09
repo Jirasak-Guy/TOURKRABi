@@ -59,31 +59,64 @@ function AcceptBookingPopup(props: Props) {
                             </Typography>
                             :
                             <div>
-                                {Array.isArray(data?.attributes.price_package) &&
-                                    data?.attributes.price_package.map((price) => (
-                                        <List component="div" disablePadding>
-                                            <ListItemButton
-                                                onClick={() => { }}
+                                <List
+                                    sx={{
+                                        position: 'fixed',
+                                        top: '45%',
+                                        left: '50%',
+                                        transform: 'translateX(-50%)',
+                                        width: '75%',
+                                        borderRadius: '10px',
+                                        bgcolor: 'rgba(0,0,0,0.1)',
+                                        fontSize: '100%',
+                                    }}
+                                >
+                                    <ListItemButton onClick={handleSelectClick}>
+                                        <ListItemText
+                                            sx={{
+                                                textAlign: 'center',
+                                            }}
+                                            primary={`${bookingroom}`}
+                                        />
+                                        {(PKGprice != 0) &&
+                                            <ListItemText
                                                 sx={{
-                                                    boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.5)',
+                                                    textAlign: 'center',
                                                 }}
-                                            >
-                                                <ListItemText
-                                                    sx={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                    primary={`${price.room_class_hotel}`}
-                                                />
-                                                <ListItemText
-                                                    sx={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                    primary={`${price.price}  บาท`}
-                                                />
-                                            </ListItemButton>
-                                        </List>
-                                    ))
-                                }
+                                                primary={`${(PKGprice === 0) ? 'ราคา' : `${PKGprice}   บาท`}`}
+                                            />
+                                        }
+                                        {selectRoom ? <ExpandLess /> : <ExpandMore />}
+                                    </ListItemButton>
+                                    {Array.isArray(data?.attributes.price_package) &&
+                                        data?.attributes.price_package.map((price) => (
+                                            <Collapse in={selectRoom} timeout="auto" unmountOnExit>
+                                                <List component="div" disablePadding>
+                                                    <ListItemButton
+                                                        disabled={bookingroom === price.room_class_hotel}
+                                                        onClick={() => { }}
+                                                        sx={{
+                                                            boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.5)',
+                                                        }}
+                                                    >
+                                                        <ListItemText
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                            }}
+                                                            primary={`${price.room_class_hotel}`}
+                                                        />
+                                                        <ListItemText
+                                                            sx={{
+                                                                textAlign: 'center',
+                                                            }}
+                                                            primary={`${price.price}  บาท`}
+                                                        />
+                                                    </ListItemButton>
+                                                </List>
+                                            </Collapse>
+                                        ))
+                                    }
+                                </List>
                             </div>
                         }
                     </Typography>
