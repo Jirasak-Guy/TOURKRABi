@@ -251,6 +251,7 @@ function TourAppBar() {
           >
             {isUser ?
               <div>
+                <MenuItem onClick={() => { navigate('/profile') }}>Profile</MenuItem>
                 <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
               </div>
               :
