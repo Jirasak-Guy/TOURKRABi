@@ -168,9 +168,10 @@ table tr th {
     width: 270px;
   }
 
-  .tablebox  {
+  table {
     font-size: 10px;
-    width: 56vh;
+    width: 45vh;
+    height: 5vh;
   }
 
 }
