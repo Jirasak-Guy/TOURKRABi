@@ -5,6 +5,7 @@ import Tour from "../models/Tours";
 import { API } from "../constant";
 import './AcceptBookingPopup.css';
 import { BEARER } from "../constant";
+import { getToken } from "../helpers";
 
 interface Props {
     onClose: () => void;
@@ -21,7 +22,19 @@ function AcceptBookingPopup(props: Props) {
         setselectRoom(!selectRoom);
     };
 
-    const handleBooking = async () => { }
+    const handleBooking = async () => {
+        try {
+            const token = getToken();
+            if (token) {
+                console.log('gettoken')
+                const UserData = token.split('.');
+                const User = JSON.parse(atob(UserData[1]));
+                console.log(User.id)
+            }
+        } catch {
+            console.log(Error)
+        }
+    }
 
     return (
         <Box
