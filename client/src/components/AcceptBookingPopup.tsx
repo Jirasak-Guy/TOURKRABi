@@ -32,7 +32,7 @@ function AcceptBookingPopup(props: Props) {
                     if (PKGprice || data?.attributes.price_onedaytrip) {
                         const Tourdata = [data.id]
                         const UserID = [User.id]
-                        const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip : PKGprice
+                        const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip?.price : PKGprice
                         const reservations = await fetch(`${API}/reservations/`, {
                             method: "POST",
                             headers: {
