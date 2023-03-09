@@ -7,12 +7,13 @@ import DetailHead from "../components/DetailHead";
 import Tour from "../models/Tours";
 import ReviewCard from "../components/reviewcard";
 import './TourReview.css'
-
+import AcceptBookingPopup from '../components/AcceptBookingPopup';
 
 function Tourreview() {
     const url = useParams()
     const id = url.id
     const [data, setData] = useState<Tour>();
+    const [acceptBooking, setacceptBooking] = useState(false);
     const navigate = useNavigate();
 
     const fetchTourData = async () => {
@@ -32,10 +33,14 @@ function Tourreview() {
         fetchTourData();
     }, []);
 
+    const handleBookingClick = () => {
+        setacceptBooking(!acceptBooking);
+    };
+
     return (
         <Box>
             <AppBar></AppBar>
-            <Box>{(data != undefined)?
+            <Box>{(data != undefined) ?
                 <DetailHead tourdata={data} />
                 :
                 <Box>
@@ -43,7 +48,7 @@ function Tourreview() {
                 </Box>
             }
             </Box>
-            
+
             <Box>
                 <Typography className="detailhead"
                     sx={{
@@ -138,12 +143,12 @@ function Tourreview() {
                         marginLeft: '15px',
                         paddingLeft: '50px',
                         paddingRight: '50px',
-                        marginBottom:'30px'
+                        marginBottom: '30px'
                     }}
                 >รีวิว</Typography>
             </Box>
-            <Box>{(data)?
-                <ReviewCard tour= {data} />
+            <Box>{(data) ?
+                < ReviewCard tour={data} />
                 :
                 <Box>
                     No Review
@@ -164,6 +169,8 @@ function Tourreview() {
                 }}
             >
                 <Button
+                    disabled={ismax}
+                    onClick={handleBookingClick}
                     sx={{
                         color: 'white',
                         fontSize: '20px',
@@ -177,6 +184,7 @@ function Tourreview() {
                     {ismax ? 'เต็ม' : `จอง ${data?.attributes.current_participate}/${data?.attributes.maximun_participate}`}
                     <img src="../people.png" width={'30'} height={'30'} alt="not found" />
                 </Button>
+                {acceptBooking && data && <AcceptBookingPopup onClose={handleBookingClick} data={data} />}
             </Box>
         </Box >
     )
