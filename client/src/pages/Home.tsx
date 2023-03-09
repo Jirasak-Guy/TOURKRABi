@@ -155,7 +155,7 @@ function Home() {
                             onClick={handleOpenMenu}
                             color="inherit"
                         >
-                            <Avatar src={API_URL + user?.Avatar.url} />
+                            <Avatar src={API_URL + user?.Avatar?.url} />
                         </IconButton>
                         <Menu
                             id="menu-appbar"
