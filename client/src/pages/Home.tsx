@@ -221,7 +221,7 @@ function Home() {
                                 onClick={handleOpenMenu}
                                 color="inherit"
                             >
-                                <Avatar src={API_URL + user?.Avatar.url} />
+                                <Avatar src={conf.apiPrefix + user?.Avatar.url} />
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -283,7 +283,7 @@ function Home() {
                         sx={{ mr: 2, color: "#fff" }}
                         onClick={handleOpenMenu}
                     >
-                        <Avatar src={API_URL + user?.Avatar.url} />
+                        <Avatar src={conf.apiPrefix + user?.Avatar.url} />
                     </IconButton>
                     <Menu
                         id="menu-appbar"
