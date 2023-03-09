@@ -12,14 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "reservation_date": {
-      "type": "date",
-      "required": false
-    },
-    "reservation_expire_date": {
-      "type": "date",
-      "required": false
-    },
     "total_price": {
       "type": "biginteger",
       "required": true
