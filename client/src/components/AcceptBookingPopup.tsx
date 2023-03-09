@@ -29,7 +29,15 @@ function AcceptBookingPopup(props: Props) {
                 console.log('gettoken')
                 const UserData = token.split('.');
                 const User = JSON.parse(atob(UserData[1]));
-                console.log(User.id)
+                if (User.id && data.id) {
+                    console.log('have Tour id and User id')
+                    if (PKGprice || data?.attributes.price_onedaytrip) {
+                        const Tourdata = [data.id]
+                        const UserID = [User.id]
+                        const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip : PKGprice
+                        console.log(Tourdata,UserID,Price)
+                    }
+                }
             }
         } catch {
             console.log(Error)
