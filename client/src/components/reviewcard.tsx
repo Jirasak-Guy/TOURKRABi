@@ -1,5 +1,5 @@
-import { Box, Typography, TextField, Button, Grid, Rating,IconButton} from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { Box, Typography, TextField, Button, Grid, Rating, IconButton } from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 import Review from "../models/Reviews";
 import Tour from "../models/Tours";
 import Repo from '../repositories';
@@ -18,7 +18,6 @@ interface Prop {
 
 function ReviewCard(props: Prop) {
     const { user } = useAuthContext()
-    const [showreview, setShowReview] = useState(false);
     const [review, setReview] = useState<Tour>();
     const [rating, setRating] = useState(0);
     const reviewRef = useRef<HTMLInputElement>(null)
@@ -46,7 +45,7 @@ function ReviewCard(props: Prop) {
             }
         }
     }
-    const handleReview = async () => {
+    const createReview = async () => {
         if (!user) {
             alert('Please log in to submit a review.');
         } else {
@@ -54,10 +53,14 @@ function ReviewCard(props: Prop) {
             await Repo.ReviewRepo.createReview(newReview)
         }
     }
-    const handleEditReview = async () => { setShowReview(true) }
+
+    const deleteReview = async (id: string) => {
+        await Repo.ReviewRepo.deleteReview(id)
+        fetchReview();
+    }
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        handleReview()
+        createReview()
         fetchReview();
     };
 
@@ -65,7 +68,7 @@ function ReviewCard(props: Prop) {
         fetchReview();
     }, []);
 
-    
+
 
     return (
         <Box sx={{
@@ -106,8 +109,8 @@ function ReviewCard(props: Prop) {
                                 </Typography>
                             </Box>
                             {(data?.attributes?.author?.data?.id === user?.id) && (
-                                <IconButton>
-                                    <Edit />
+                                <IconButton onClick={() => deleteReview(data?.id.toString())}>
+                                    <Delete />
                                 </IconButton>
                             )}
                         </Box>
