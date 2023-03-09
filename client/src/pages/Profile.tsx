@@ -44,9 +44,10 @@ function Profilepage() {
                             <th>สถานะ</th>
                         </tr>
                     </thead>
-                    {user?.reservations.map((reservation) => {
-                        return <DataTable userReservation={reservation} />;
-                    })}
+                    {user?.reservations !== undefined &&
+                        user?.reservations.map((reservation) => {
+                            return <DataTable userReservation={reservation} />;
+                        })}
                 </table>
             </div>
         </div>

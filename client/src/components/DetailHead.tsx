@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import Tour from "../models/Tours";
 
 interface Prop {
-    tourdata?: Tour | undefined;
+    tourdata: Tour;
 }
 function DetailHead(props: Prop) {
     const tour = props.tourdata;

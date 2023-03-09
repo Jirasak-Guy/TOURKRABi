@@ -24,5 +24,25 @@ export default interface Tour {
                 price: number
             }
         ]
+        reviews: {
+            data: [
+                {
+                    id: number
+                    attributes: {
+                        rating: number
+                        comment: string
+                        author: {
+                            data: {
+                                id: number
+                                attributes: {
+                                    username: string,  
+                                }
+                            }
+                        }
+
+                    }
+                }
+            ]
+        }
     }
 }

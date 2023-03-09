@@ -6,11 +6,17 @@ export class ReviewRepo implements IRepository<Review> {
 
     urlPrefix = "http://localhost:1338/api/reviews"
 
-    async getAll(): Promise<Review[] | null> {
+    async getAll(id : string): Promise<Review[] | null> {
         const resp = await fetch(`${this.urlPrefix}?populate=*`)
         const data = await resp.json()
         return data.data
     }
+
+    async get(id: string): Promise<Review | null> {
+        const resp = await fetch(`http://localhost:1338/api/reviews/${id}?populate[author][populate]=*`)
+        const data = await resp.json()
+        return data.data
+      }
 
     async create(entity: Partial<Review>): Promise<Review | null> {
         const resp = await axios.post<Review>(`${this.urlPrefix}`, entity)
