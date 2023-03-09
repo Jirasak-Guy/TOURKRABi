@@ -6,9 +6,13 @@ export default interface reservation {
         total_price: number;
         payment_status: boolean;
         tour: {
-            tour_name: string;
-            current_participate: number;
-            maximun_participate: number;
+            data: {
+                attributes: {
+                    tour_name: string;
+                    current_participate: number;
+                    maximun_participate: number;
+                }
+            }
         }
         user: {
             data: {

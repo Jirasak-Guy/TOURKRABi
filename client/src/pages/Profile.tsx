@@ -24,6 +24,9 @@ function Profilepage() {
         fetchReservations();
     }, [])
 
+    reservations?.forEach((Element) => {
+        console.log(Element)
+    })
     return (
         <div>
             <Appbar />

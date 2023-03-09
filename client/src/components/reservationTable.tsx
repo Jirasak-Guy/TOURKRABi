@@ -9,10 +9,19 @@ interface Props {
 
 function DataTable(props: Props) {
 
+    const listOfreserve = {
+        tourname: props.userRevserv.attributes.tour.data.attributes.tour_name,
+        currentPart: props.userRevserv.attributes.tour.data.attributes.current_participate,
+        maxPart: props.userRevserv.attributes.tour.data.attributes.maximun_participate,
+        reserveDate: new Date(props.userRevserv.attributes.createdAt).toISOString().slice(0, 10),
+        total_price: props.userRevserv.attributes.total_price,
+        status: props.userRevserv.attributes.payment_status
+    }
+
     const handlePayment = () => {
         Swal.fire({
             title: 'ยกเลิกการจอง?',
-            text: `คุณต้องการยกเลิกการจองทัวร์ ${props.userRevserv.attributes.tour.tour_name} ใช่หรือไม่`,
+            text: `คุณต้องการยกเลิกการจองทัวร์ ${listOfreserve.tourname} ใช่หรือไม่`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#8fce00',
@@ -31,7 +40,7 @@ function DataTable(props: Props) {
     const handleNotPayment = () => {
         Swal.fire({
             title: 'โปรดส่งสลิปการจ่ายเงินใน Line',
-            text: `ยอดรวมทั้งสิ้น ${props.userRevserv.attributes.total_price} บาท`,
+            text: `ยอดรวมทั้งสิ้น ${listOfreserve.total_price} บาท`,
             imageUrl: 'https://inwfile.com/s-cx/xofr1e.jpg',
             imageWidth: 200,
             imageHeight: 200,
@@ -48,15 +57,6 @@ function DataTable(props: Props) {
                 window.location.reload()
             };
         })
-    }
-
-    const listOfreserve = {
-        tourname: props.userRevserv.attributes.tour.tour_name,
-        currentPart: props.userRevserv.attributes.tour.current_participate,
-        maxPart: props.userRevserv.attributes.tour.maximun_participate,
-        reserveDate: new Date(props.userRevserv.attributes.createdAt).toISOString().slice(0, 10),
-        total_price: props.userRevserv.attributes.total_price,
-        status: props.userRevserv.attributes.payment_status
     }
 
     return (
