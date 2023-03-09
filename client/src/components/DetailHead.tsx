@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import Tour from "../models/Tours";
+import conf from "../config/conf";
 
 interface Prop {
     tourdata: Tour;
@@ -7,7 +8,7 @@ interface Prop {
 function DetailHead(props: Prop) {
     const tour = props.tourdata;
     if (tour) {
-        const img = `http://localhost:1338${tour.attributes.tour_image.data[0].attributes.url}`
+        const img = `${conf.apiPrefix}${tour.attributes.tour_image.data[0].attributes.url}`
         const containerStyle = {
             width: "100%",
             height: "36rem",

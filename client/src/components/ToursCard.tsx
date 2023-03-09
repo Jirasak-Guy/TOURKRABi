@@ -2,6 +2,7 @@ import { Card } from "@mui/material";
 import { Box, CardActions, Typography, Button, CardMedia, CardContent, CardActionArea } from '@mui/material';
 import Tour from "../models/Tours";
 import { useNavigate } from "react-router-dom";
+import conf from "../config/conf";
 
 interface Prop {
     tour: Tour;
@@ -12,7 +13,7 @@ function TourCard(props: Prop) {
     const navigate = useNavigate();
     const tour = props.tour;
 
-    const img = `http://localhost:1338${tour.attributes.tour_image.data[0].attributes.url}`
+    const img = `${conf.apiPrefix}${tour.attributes.tour_image.data[0].attributes.url}`
     const maxbooking = (tour.attributes.current_participate >= tour.attributes.maximun_participate) ? true : false
 
     return (
