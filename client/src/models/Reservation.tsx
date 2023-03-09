@@ -7,6 +7,7 @@ export default interface reservation {
         payment_status: boolean;
         tour: {
             data: {
+                id: number;
                 attributes: {
                     tour_name: string;
                     current_participate: number;
