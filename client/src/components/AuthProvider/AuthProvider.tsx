@@ -16,12 +16,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const fetchLoggedInUser = async (token: string) => {
         try {
-            const response = await fetch(`${API}/users/me?populate=Avatar&populate=reservations.tour`, {
+            const response = await fetch(`${API}/users/me?populate=Avatar`, {
                 headers: { Authorization: `${BEARER} ${token}` },
             });
             const data = await response.json();
             if (data.Avatar === null) {
-                data.Avatar = {url:"/uploads/Non_prof_c80374e946.png?updated_at=2023-03-07T21:38:03.668Z"};
+                data.Avatar = {url:"/uploads/Non_prof_c571c94bee.png?updated_at=2023-03-08T06:31:15.622Z"};
             }
             setUserData(data);
         } catch (error) {
