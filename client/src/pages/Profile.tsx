@@ -60,7 +60,9 @@ function Profilepage() {
                         </tr>
                     </thead>
                     {reservations && reservations.map((data) => {
-                        if (!(data?.attributes?.payment_status) && (data?.attributes?.createdAt === data?.attributes?.reservation_expire_date)) {
+                        console.log("now", new Date(Date.now()).getTime());
+                        console.log("exp", new Date(data?.attributes?.reservation_expire_date).getTime())
+                        if (!(data?.attributes?.payment_status) && (new Date(Date.now()).getTime() >= new Date(data?.attributes?.reservation_expire_date).getTime())) {
                             repositories.ReserveRepo.delete(data?.id);
                         } else if (data?.attributes?.user?.data?.id === user?.id) {
                             return <DataTable userRevserv={data} />;
