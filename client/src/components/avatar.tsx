@@ -2,7 +2,7 @@ import { Box, Typography, TextField, Button, Grid, Rating, CardMedia } from '@mu
 import UserData from "../models/User";
 import Repo from '../repositories';
 import { useEffect, useState } from 'react';
-import { Console } from 'console';
+import conf from "../config/conf";
 
 
 
@@ -20,7 +20,7 @@ function Avatar(props: Item) {
             setAvatar(result)
         }
     }
-    const img = (avatar?.Avatar !== null) ? `http://localhost:1338${avatar?.Avatar?.url}` : `None Image`;
+    const img = (avatar?.Avatar !== null) ? `${conf.apiPrefix}${avatar?.Avatar?.url}` : `${conf.apiPrefix}/uploads/3135715_f5b429867d.png?updated_at=2023-03-09T20:47:59.189Z`;
     useEffect(() => {
         fetchAvatar();
     }, []);
