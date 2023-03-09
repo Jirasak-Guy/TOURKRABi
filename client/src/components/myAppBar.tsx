@@ -129,7 +129,7 @@ function TourAppBar() {
                 <ListItemIcon>
                   <img src='../BookingIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
-                <ListItemText primary="booking" />
+                <ListItemText primary="Booking" />
               </ListItemButton>
             </ListItem>
           </List>
