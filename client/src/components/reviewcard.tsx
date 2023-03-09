@@ -1,6 +1,5 @@
 import { Box, Typography, TextField, Button, Grid, Rating, IconButton } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
-import Review from "../models/Reviews";
 import Tour from "../models/Tours";
 import Repo from '../repositories';
 import { useEffect, useState, useRef } from 'react';
@@ -11,17 +10,17 @@ import Reviewdata from "../models/Reviewdata";
 
 const styles = {
     '&::-webkit-scrollbar': {
-      width: '8px',
+        width: '8px',
     },
     '&::-webkit-scrollbar-thumb': {
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      borderRadius: '8px',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        borderRadius: '8px',
     },
     '&::-webkit-scrollbar-track': {
-      background: '#f1f1f1',
-      borderRadius: '8px',
+        background: '#f1f1f1',
+        borderRadius: '8px',
     },
-  };
+};
 
 interface Prop {
     tour: Tour;
@@ -40,19 +39,6 @@ function ReviewCard(props: Prop) {
             const Tours = await Repo.TourRepo.getReview(tour_id);
             if (Tours) {
                 setReview(Tours)
-                console.log(review)
-            }
-        }
-    }
-    const newReview: Reviewdata = {
-        data: {
-            rating: rating,
-            comment: reviewRef.current?.value,
-            tour: {
-                id: tour_id
-            },
-            author: {
-                id: user_id
             }
         }
     }
@@ -60,6 +46,19 @@ function ReviewCard(props: Prop) {
         if (!user) {
             alert('Please log in to submit a review.');
         } else {
+            const newReview: Reviewdata = {
+                data: {
+                    rating: rating,
+                    comment: reviewRef.current?.value,
+                    tour: {
+                        id: tour_id
+                    },
+                    author: {
+                        id: user_id
+                    }
+                }
+            }
+            console.log(newReview)
             await Repo.ReviewRepo.createReview(newReview)
             fetchReview();
         }
@@ -71,9 +70,9 @@ function ReviewCard(props: Prop) {
             fetchReview();
         }
     }
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        createReview()
+        createReview();
         fetchReview();
     };
 
@@ -81,7 +80,9 @@ function ReviewCard(props: Prop) {
         fetchReview();
     }, []);
 
-
+    useEffect(() => {
+        fetchReview();
+    }, [rating]);
 
     return (
         <Box sx={{
@@ -93,7 +94,7 @@ function ReviewCard(props: Prop) {
             margin: 'auto',
             borderRadius: "15px",
         }}>
-            <Box sx={{ mt: 2, overflowY:"scroll",height:"200px", paddingRight: '20px',...styles}}>
+            <Box sx={{ mt: 2, overflowY: "scroll", height: "200px", paddingRight: '20px', ...styles }}>
                 {Array.isArray(review?.attributes?.reviews?.data) &&
                     review?.attributes.reviews.data.map((data, index) => (
                         <Box
@@ -107,7 +108,7 @@ function ReviewCard(props: Prop) {
                                 borderRadius: '15px',
                                 backgroundColor: '#E0E0E0',
                                 overflow: 'hidden',
-                               
+
                             }}
                         >
                             <Avatar ID={data?.attributes?.author?.data?.id} />
@@ -142,7 +143,7 @@ function ReviewCard(props: Prop) {
                 />
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={9}>
-                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} required/>
+                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} required />
                     </Grid>
                     <Grid item xs={3}>
                         <Button variant="contained" color="primary" type="submit">Submit</Button>
