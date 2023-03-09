@@ -24,9 +24,6 @@ function Profilepage() {
         fetchReservations();
     }, [])
 
-    reservations?.forEach((Element) => {
-        console.log(Element)
-    })
     return (
         <div>
             <Appbar />
@@ -64,7 +61,7 @@ function Profilepage() {
                     </thead>
                     {reservations !== undefined &&
                         reservations.map((data) => {
-                            if (data.attributes.user.data.id === user?.id) {
+                            if (data?.attributes?.user?.data?.id === user?.id) {
                                 return <DataTable userRevserv={data} />
                             } return null;
                         })
