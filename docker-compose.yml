@@ -30,7 +30,7 @@ services:
       DATABASE_PORT: 3306
       DATABASE_NAME: demo
       DATABASE_USERNAME: root
-      DATABASE_PASSWORD: T@n=25131128
+      DATABASE_PASSWORD: pfhKqNoLkHcnbbDVFS3b1Rs30/z2qyGQZkdNNrvc/Ks=
       APP_KEYS: qxwVqIofPsopfiJl5Wu9sw==,koovyzzi8Z12daIxeRLgcA==,PWxsX1TcoFUSfCgFLioP9Q==,0FPedZkTkTiCc00k2S3fVg==
       JWT_SECRET: /8N2NSSt4geB8wDWZoZ8AQ==
       ADMIN_JWT_SECRET: ElC2n+u1jXARUmT3dt7dtA==
