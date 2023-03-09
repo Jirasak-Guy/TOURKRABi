@@ -34,21 +34,23 @@ function Profilepage() {
                 <div className="History-Booking">
                     <h1>ประวัติการจอง</h1>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ชื่อโปรแกรม</th>
-                            <th>จำนวนผู้จอง</th>
-                            <th>วันที่จอง</th>
-                            <th>ราคา</th>
-                            <th>สถานะ</th>
-                        </tr>
-                    </thead>
-                    {user?.reservations !== undefined &&
-                        user?.reservations.map((reservation) => {
-                            return <DataTable userReservation={reservation} />;
-                        })}
-                </table>
+                <div className="tablebox">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ชื่อโปรแกรม</th>
+                                <th>จำนวนผู้จอง</th>
+                                <th>วันที่จอง</th>
+                                <th>ราคา</th>
+                                <th>สถานะ</th>
+                            </tr>
+                        </thead>
+                        {user?.reservations !== undefined &&
+                            user?.reservations.map((reservation) => {
+                                return <DataTable userReservation={reservation} />;
+                            })}
+                    </table>
+                </div>
             </div>
         </div>
     )
