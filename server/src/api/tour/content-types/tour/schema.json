@@ -38,10 +38,6 @@
       "required": true,
       "default": 10
     },
-    "tour_detial": {
-      "type": "text",
-      "required": true
-    },
     "tour_type": {
       "type": "enumeration",
       "enum": [
@@ -71,6 +67,9 @@
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "tour"
+    },
+    "tour_detial": {
+      "type": "richtext"
     }
   }
 }
