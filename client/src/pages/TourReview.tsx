@@ -54,20 +54,19 @@ function Tourreview() {
                 <Typography className="detailhead"
                     sx={{
                         fontSize: '35px',
-                        marginLeft: '15px',
-                        marginTop: '30px',
-                        marginRight: '10px',
+                        marginLeft: '2vw',
+                        marginTop: '2.5vh',
                     }}
                 >
                     รายละเอียด
                 </Typography>
             </Box>
-            <Box display={'flex'} justifyContent={'center'}>
+            <Box className="detail" display={'flex'} justifyContent={'center'}>
                 <Typography
-                    className="detail"
                     sx={{
-                        marginTop: '30px',
                         textAlign: 'justify',
+                        display:'inline-block',
+                        displayPrint:'block',
                     }}>
                     {data?.attributes.tour_detial ?
                         <ReactMarkdown>
@@ -82,33 +81,31 @@ function Tourreview() {
                 <Typography
                     className="detailhead"
                     sx={{
-                        paddingLeft: '50px',
-                        paddingRight: '50px',
+                        paddingLeft: '2.5vw',
+                        paddingRight: '2.5vw',
                         fontSize: '35px',
-                        marginTop: '30px',
-                        marginLeft: '15px',
+                        marginTop: '3vh',
+                        marginLeft: '2.5vw',
                     }}
                 >
                     ราคา
                 </Typography>
             </Box>
             <Box>
-                <Typography variant="body1">
+                <Typography>
                     {(data?.attributes.price_onedaytrip) ?
                         <Typography
                             className="price"
                             sx={{
                                 fontSize: '35px',
-                                marginLeft: '3%',
-                                marginRight: '10px',
+                                marginLeft: '2.5vw',
+                                marginRight: '2.5vw',
                             }}>{data?.attributes.price_onedaytrip.price} บาท </Typography>
                         :
                         <Box sx={{
                             padding: '5px',
-                            fontSize: '35px',
                             display: 'flex',
                             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                            textAlign: 'justify',
                             maxWidth: '90%',
                             margin: 'auto',
                         }}>
@@ -146,11 +143,11 @@ function Tourreview() {
                 <Typography className="detailhead"
                     sx={{
                         fontSize: '35px',
-                        marginTop: '30px',
-                        marginLeft: '15px',
-                        paddingLeft: '50px',
-                        paddingRight: '50px',
-                        marginBottom: '30px'
+                        marginTop: '3.5vh',
+                        marginLeft: '2.5vw',
+                        paddingLeft: '2.5vw',
+                        paddingRight: '2.5vw',
+                        marginBottom: '2vh'
                     }}
                 >รีวิว</Typography>
             </Box>
