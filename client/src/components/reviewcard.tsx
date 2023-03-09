@@ -8,9 +8,20 @@ import { useAuthContext } from "../context/AuthContext";
 import Avatar from "./avatar";
 import StarRating from "./star";
 import Reviewdata from "../models/Reviewdata";
-import { useNavigate, useParams } from "react-router-dom";
 
-
+const styles = {
+    '&::-webkit-scrollbar': {
+      width: '8px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      borderRadius: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: '#f1f1f1',
+      borderRadius: '8px',
+    },
+  };
 
 interface Prop {
     tour: Tour;
@@ -55,8 +66,10 @@ function ReviewCard(props: Prop) {
     }
 
     const deleteReview = async (id: string) => {
-        await Repo.ReviewRepo.deleteReview(id)
-        fetchReview();
+        if (window.confirm('Are you sure you want to delete this review?')) {
+            await Repo.ReviewRepo.deleteReview(id);
+            fetchReview();
+        }
     }
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -80,7 +93,7 @@ function ReviewCard(props: Prop) {
             margin: 'auto',
             borderRadius: "15px",
         }}>
-            <Box sx={{ mt: 2, }}>
+            <Box sx={{ mt: 2, overflowY:"scroll",height:"200px", paddingRight: '20px',...styles}}>
                 {Array.isArray(review?.attributes?.reviews?.data) &&
                     review?.attributes.reviews.data.map((data, index) => (
                         <Box
@@ -93,7 +106,8 @@ function ReviewCard(props: Prop) {
                                 padding: '10px',
                                 borderRadius: '15px',
                                 backgroundColor: '#E0E0E0',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                               
                             }}
                         >
                             <Avatar ID={data?.attributes?.author?.data?.id} />
