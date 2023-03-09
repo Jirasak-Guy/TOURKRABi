@@ -69,9 +69,9 @@ function Tourreview() {
                         displayPrint:'block',
                     }}>
                     {data?.attributes.tour_detial ?
-                        <ReactMarkdown>
+                        <Box marginX={'2.5%'} width={'95%'}><ReactMarkdown>
                             {data.attributes.tour_detial}
-                        </ReactMarkdown>
+                        </ReactMarkdown></Box>
                         :
                         <h1>No detail</h1>
                     }
