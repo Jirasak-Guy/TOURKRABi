@@ -49,8 +49,8 @@ function ReviewCard(props: Prop) {
         if (!user) {
             alert('Please log in to submit a review.');
         } else {
-
             await Repo.ReviewRepo.createReview(newReview)
+            fetchReview();
         }
     }
 
