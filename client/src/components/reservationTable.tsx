@@ -16,8 +16,7 @@ function DataTable(props: Props) {
         tourname: props.userRevserv.attributes.tour.data.attributes.tour_name,
         currentPart: props.userRevserv.attributes.tour.data.attributes.current_participate,
         maxPart: props.userRevserv.attributes.tour.data.attributes.maximun_participate,
-        reserveDate: new Date(props.userRevserv.attributes.createdAt).toISOString().slice(0, 10),
-        total_price: props.userRevserv.attributes.total_price,
+        reserveDate: new Date(props.userRevserv.attributes.createdAt).toISOString().slice(0, 10),        total_price: props.userRevserv.attributes.total_price,
         status: props.userRevserv.attributes.payment_status
     }
 
@@ -84,10 +83,7 @@ function DataTable(props: Props) {
                             }
                         })
                     })
-                }else{
-                    console.log('help me pls')
                 }
-
             }
         }
     }
