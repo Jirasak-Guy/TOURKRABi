@@ -1,4 +1,5 @@
-import { Box, Typography, TextField, Button, Grid, Rating } from '@mui/material';
+import { Box, Typography, TextField, Button, Grid, Rating,IconButton} from '@mui/material';
+import { Edit } from '@mui/icons-material';
 import Review from "../models/Reviews";
 import Tour from "../models/Tours";
 import Repo from '../repositories';
@@ -17,17 +18,31 @@ interface Prop {
 
 function ReviewCard(props: Prop) {
     const { user } = useAuthContext()
-    const navigate = useNavigate();
+    const [showreview, setShowReview] = useState(false);
     const [review, setReview] = useState<Tour>();
     const [rating, setRating] = useState(0);
     const reviewRef = useRef<HTMLInputElement>(null)
-    const id = props.tour.id.toString();
+    const tour_id = props.tour.id.toString();
+    const user_id = (user?.id) ? user.id.toString() : '0'
+
     const fetchReview = async () => {
         if (props) {
-            const Tours = await Repo.TourRepo.getReview(id);
+            const Tours = await Repo.TourRepo.getReview(tour_id);
             if (Tours) {
                 setReview(Tours)
                 console.log(review)
+            }
+        }
+    }
+    const newReview: Reviewdata = {
+        data: {
+            rating: rating,
+            comment: reviewRef.current?.value,
+            tour: {
+                id: tour_id
+            },
+            author: {
+                id: user_id
             }
         }
     }
@@ -35,33 +50,22 @@ function ReviewCard(props: Prop) {
         if (!user) {
             alert('Please log in to submit a review.');
         } else {
-            const newReview: Reviewdata = {
-                data:{
-                    rating: rating,
-                    comment: reviewRef.current?.value,
-                    tour: {
-                            id: id
-                    },
-                    author: {
-                            id: user?.id.toString()
-                    }
-                    }
-            }
+
             await Repo.ReviewRepo.createReview(newReview)
         }
     }
-
-
-
-    useEffect(() => {
-        fetchReview();
-    }, []);
-
+    const handleEditReview = async () => { setShowReview(true) }
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         handleReview()
         fetchReview();
     };
+
+    useEffect(() => {
+        fetchReview();
+    }, []);
+
+    
 
     return (
         <Box sx={{
@@ -101,6 +105,11 @@ function ReviewCard(props: Prop) {
                                     <StarRating rating={data?.attributes.rating} />
                                 </Typography>
                             </Box>
+                            {(data?.attributes?.author?.data?.id === user?.id) && (
+                                <IconButton>
+                                    <Edit />
+                                </IconButton>
+                            )}
                         </Box>
                     ))}
             </Box>
@@ -116,7 +125,7 @@ function ReviewCard(props: Prop) {
                 />
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={9}>
-                        <TextField label="Enter your review" fullWidth inputRef={reviewRef}/>
+                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} />
                     </Grid>
                     <Grid item xs={3}>
                         <Button variant="contained" color="primary" type="submit">Submit</Button>
