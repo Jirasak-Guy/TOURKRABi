@@ -69,7 +69,7 @@ function LoginPopup(props: LoginPopupProps) {
         try {
             if (userInfo.identifier && userInfo.password) {
                 if (isValidEmail(userInfo.identifier)) {
-                    const response = await fetch(`${conf.apiPrefix}/auth/local`, {
+                    const response = await fetch(`${conf.apiPrefix}/api/auth/local`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

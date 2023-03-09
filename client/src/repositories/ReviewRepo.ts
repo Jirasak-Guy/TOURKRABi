@@ -7,7 +7,7 @@ import conf from "../config/conf";
 
 export class ReviewRepo implements IRepository<Review> {
 
-    urlPrefix = `${conf.apiPrefix}/api/reviews"`
+    urlPrefix = `${conf.apiPrefix}/api/reviews`
     token = getToken();
 
     async getAll(id: string): Promise<Review[] | null> {
