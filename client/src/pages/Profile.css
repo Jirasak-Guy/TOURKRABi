@@ -1,0 +1,177 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.Box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Profile-Card {
+  width: 80%;
+  height: 350px;
+  margin-top: 7%;
+  padding: 12px;
+  background: white;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+}
+
+.useravatar1 {
+  width: 200px;
+  height: 200px;
+  margin-block: 63px;
+  margin-inline: 45px;
+}
+
+.info-container {
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+label {
+  width: 15%;
+  font-size: larger;
+}
+
+.username-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box-info {
+  display: flex;
+  align-items: center;
+  width: 450px;
+  height: 60px;
+  background: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin: 10px;
+  padding-inline-start: 18px;
+}
+
+.email-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.touricon {
+  width: 100%;
+  background-image: url(/public/touricon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+}
+
+.History-Booking {
+  width: 450px;
+  height: 80px;
+  background: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  text-align: center;
+  font-size: 22px;
+  margin-top: 10%;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 50px;
+}
+
+table tr td {
+  width: 260px;
+  height: 80px;
+  padding: 10px;
+  border: 2px solid black;
+  background-color: white;
+
+}
+
+table tr th {
+  width: 260px;
+  height: 80px;
+  padding: 10px;
+  border: 2px solid black;
+  background-color: lightgrey;
+}
+
+@media screen and (max-width: 810px) {
+
+  .Profile-Card {
+    height: 22vh;
+  }
+
+  .useravatar1 {
+    width: 125px;
+    height: 125px;
+    margin-block: 42px;
+    margin-inline: 21px;
+  }
+
+  .info-container {
+    font-size: 14px;
+  }
+
+  .info-container label{
+    width: 60px;
+  }
+
+  .box-info {
+    width: 300px;
+    height: 50px;
+  }
+
+  .History-Booking {
+    font-size: 18px;
+    height: 65px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+
+  .Profile-Card{
+    height: 22vh;
+  }
+
+  .useravatar1 {
+    width: 125px;
+    height: 125px;
+    margin-block: 21px;
+    margin-inline: 8px;
+  }
+
+  .info-container{
+    font-size: 9px;
+  }
+
+  .box-info {
+    width: 110px;
+    height: 35px;
+  }
+
+  .History-Booking {
+    font-size: 14px;
+    height: 55px;
+    width: 270px;
+  }
+
+  table {
+    font-size: 10px;
+    width: 45vh;
+    height: 5vh;
+  }
+
+}

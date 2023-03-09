@@ -27,3 +27,35 @@
     background-image: url(https://www.freepnglogos.com/uploads/copyright-png/copyright-logo-png-clipart-best-5.png);
     background-size: contain;
 }
+
+@media screen and (max-width: 1080px) {
+
+    .footer-container {
+        height: 120px;
+    }
+
+    .footer {
+        padding: 15px 30%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .footer-container {
+        height: 50px;
+    }
+
+    .footer {
+        padding: 15px 15%;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .footer-container {
+        height: 50px;
+    }
+
+    .footer {
+        padding: 13px 13%;
+    }
+}

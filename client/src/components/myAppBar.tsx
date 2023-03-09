@@ -1,9 +1,13 @@
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, ThemeProvider, createTheme, Button, Drawer, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { Menu as MenuIcon, AccountCircle } from "@mui/icons-material";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import Avatar from '@mui/material/Avatar';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SignupPopup from "./signupform";
 import LoginPopup from "./loginform";
+import { useAuthContext } from "../context/AuthContext";
+import { removeToken } from "../helpers";
+import { API_URL } from "../constant";
 
 function TourAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -12,7 +16,8 @@ function TourAppBar() {
   const [windowwidth, setWindowwidth] = useState(window.innerWidth);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-
+  const { user } = useAuthContext();
+  
   const handleOpenMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -69,6 +74,16 @@ function TourAppBar() {
     setShowSignup(false);
   }
 
+  const handleLogout = () => {
+    setAnchorEl(null);
+    removeToken();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
+
+  const isUser = (localStorage.getItem("jwt")) ? true : false
+
   return (
     <ThemeProvider theme={Theme}>
       <AppBar position="sticky" color="primary">
@@ -88,7 +103,7 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/')}>
                 <ListItemIcon>
-                  <img src='../HomeIcon.png' width={'30'} />
+                  <img src='../HomeIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItemButton>
@@ -96,7 +111,7 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/onedaytrip')}>
                 <ListItemIcon>
-                  <img src='../OneDayTripIcon.png' width={'30'} />
+                  <img src='../OneDayTripIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="One Day Trip" />
               </ListItemButton>
@@ -104,15 +119,15 @@ function TourAppBar() {
             <ListItem>
               <ListItemButton onClick={() => navigate('/packagetrip')}>
                 <ListItemIcon>
-                  <img src='../PackageIcon.png' width={'30'} />
+                  <img src='../PackageIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="Package" />
               </ListItemButton>
             </ListItem>
             <ListItem>
-              <ListItemButton onClick={() => navigate('/booking')}>
+              <ListItemButton onClick={() => navigate('/profile')}>
                 <ListItemIcon>
-                  <img src='../BookingIcon.png' width={'30'} />
+                  <img src='../BookingIcon.png' alt="Not found" width={'30'} />
                 </ListItemIcon>
                 <ListItemText primary="Booking" />
               </ListItemButton>
@@ -122,7 +137,7 @@ function TourAppBar() {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Box>
-              {isPC ?
+              {isPC ? (
                 <Box>
                   <Button
                     size="large"
@@ -162,14 +177,14 @@ function TourAppBar() {
                   <Button
                     size="large"
                     aria-label="Booking Button"
-                    onClick={() => navigate('/booking')}
+                    onClick={() => navigate('/profile')}
                     color="inherit"
                   >
                     <img src="../BookingIcon.png" alt="(BookingIcon)" width={"33.3"} height={"33.3"} />
                     &nbsp;Booking
                   </Button>
                 </Box>
-                :
+              ) : (
                 <Box>
                   <IconButton
                     size="large"
@@ -189,19 +204,36 @@ function TourAppBar() {
                   >
                     <img src="../applogo.png" alt="(AppIcon)" width={"134.52"} height={"26.64"} />
                   </Button>
-                </Box>}
+                </Box>
+              )}
             </Box>
           </Typography>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenMenu}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+          {isUser ? (
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
+              <p>{user?.username}</p>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenMenu}
+                color="inherit"
+              >
+                <Avatar src={API_URL + user?.Avatar.url} />
+              </IconButton>
+            </Box>
+          ) : (
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenMenu}
+              color="inherit"
+            >
+              <Avatar />
+            </IconButton>
+          )}
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -217,10 +249,18 @@ function TourAppBar() {
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={handleLoginClick}>Log in</MenuItem>
-            {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
-            <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>
-            {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+            {isUser ?
+              <div>
+                <MenuItem onClick={() => { handleLogout() }} >Log out</MenuItem>
+              </div>
+              :
+              <div>
+                <MenuItem onClick={handleLoginClick}>Log in</MenuItem>
+                {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                <MenuItem onClick={handleSignupClick}>Sign up</MenuItem>
+                {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
+              </div>
+            }
           </Menu>
         </Toolbar>
       </AppBar>

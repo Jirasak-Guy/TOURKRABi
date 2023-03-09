@@ -14,11 +14,11 @@
   "attributes": {
     "reservation_date": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "reservation_expire_date": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "total_price": {
       "type": "biginteger",
@@ -26,7 +26,7 @@
     },
     "payment_status": {
       "type": "boolean",
-      "required": true,
+      "required": false,
       "default": false
     },
     "tour": {

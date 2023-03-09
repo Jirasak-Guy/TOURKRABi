@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTable should match snapshot 1`] = `
+<DocumentFragment>
+  Test Tour0/109/3/2566100 บาท
+  <button>
+    ยังไม่ชำระเงิน
+  </button>
+</DocumentFragment>
+`;
