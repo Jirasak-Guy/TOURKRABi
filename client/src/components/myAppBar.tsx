@@ -7,7 +7,7 @@ import SignupPopup from "./signupform";
 import LoginPopup from "./loginform";
 import { useAuthContext } from "../context/AuthContext";
 import { removeToken } from "../helpers";
-import { API_URL } from "../constant";
+import conf from "../config/conf";
 
 function TourAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -219,7 +219,7 @@ function TourAppBar() {
                 onClick={handleOpenMenu}
                 color="inherit"
               >
-                <Avatar src={API_URL + user?.Avatar.url} />
+                <Avatar src={conf.apiPrefix + user?.Avatar.url} />
               </IconButton>
             </Box>
           ) : (
