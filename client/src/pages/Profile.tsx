@@ -2,12 +2,27 @@ import Appbar from "../components/myAppBar";
 import { useAuthContext } from '../context/AuthContext';
 import { API_URL } from '../constant';
 import DataTable from "../components/reservationTable";
+import { useState, useEffect } from "react";
+import reservation from "../models/Reservation";
+import repositories from "../repositories";
 
 import "./Profile.css"
 
 function Profilepage() {
 
     const { user } = useAuthContext()
+    const [reservations, setReservations] = useState<reservation[]>();
+
+    const fetchReservations = async () => {
+        const response = await repositories.ReserveRepo.getAll()
+        if (response) {
+            setReservations(response);
+        }
+    }
+
+    useEffect(() => {
+        fetchReservations();
+    }, [])
 
     return (
         <div>
@@ -34,23 +49,24 @@ function Profilepage() {
                 <div className="History-Booking">
                     <h1>ประวัติการจอง</h1>
                 </div>
-                <div className="tablebox">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ชื่อโปรแกรม</th>
-                                <th>จำนวนผู้จอง</th>
-                                <th>วันที่จอง</th>
-                                <th>ราคา</th>
-                                <th>สถานะ</th>
-                            </tr>
-                        </thead>
-                        {user?.reservations !== undefined &&
-                            user?.reservations.map((reservation) => {
-                                return <DataTable userReservation={reservation} />;
-                            })}
-                    </table>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ชื่อโปรแกรม</th>
+                            <th>จำนวนผู้จอง</th>
+                            <th>วันที่จอง</th>
+                            <th>ราคา</th>
+                            <th>สถานะ</th>
+                        </tr>
+                    </thead>
+                    {reservations !== undefined &&
+                        reservations.map((data) => {
+                            if (data.attributes.user.data.id === user?.id) {
+                                return <DataTable userRevserv={data} />
+                            } return null;
+                        })
+                    }
+                </table>
             </div>
         </div>
     )
