@@ -142,7 +142,7 @@ function ReviewCard(props: Prop) {
                 />
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={9}>
-                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} />
+                        <TextField label="Enter your review" fullWidth inputRef={reviewRef} required/>
                     </Grid>
                     <Grid item xs={3}>
                         <Button variant="contained" color="primary" type="submit">Submit</Button>
