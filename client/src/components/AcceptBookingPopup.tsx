@@ -26,16 +26,13 @@ function AcceptBookingPopup(props: Props) {
         try {
             const token = getToken();
             if (token) {
-                console.log('gettoken')
                 const UserData = token.split('.');
                 const User = JSON.parse(atob(UserData[1]));
                 if (User.id && data.id) {
-                    console.log('have Tour id and User id')
                     if (PKGprice || data?.attributes.price_onedaytrip) {
                         const Tourdata = [data.id]
                         const UserID = [User.id]
                         const Price = (data.attributes.tour_type === "onedaytrip") ? data.attributes.price_onedaytrip : PKGprice
-                        console.log(Tourdata,UserID,Price)
                         const reservations = await fetch(`${API}/reservations/`, {
                             method: "POST",
                             headers: {
@@ -83,21 +80,25 @@ function AcceptBookingPopup(props: Props) {
                     <Typography variant="h3" textAlign={'center'}>
                         {`ต้องการจองทัวร์`}
                     </Typography>
+                    <Box height={'15px'} />
                     <Typography variant="h3" textAlign={'center'}>
                         {`" ${data.attributes.tour_name} "`}
                     </Typography>
+                    <Box height={'15px'} />
                     <Typography variant="h3" textAlign={'center'}>
                         {(data.attributes.tour_type === 'onedaytrip') ?
-                            <Typography
-                                variant="h3"
-                                sx={{
-                                    position: 'fixed',
-                                    top: '50%',
-                                    left: '50%',
-                                    transform: 'translate(-50%,-50%)',
-                                }}>
-                                {`ราคา ${data.attributes.price_onedaytrip?.price} บาท`}
-                            </Typography>
+                            <div>
+                                <Typography
+                                    variant="h3"
+                                    sx={{
+                                        position: 'fixed',
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%,-50%)',
+                                    }}>
+                                    {`ราคา ${data.attributes.price_onedaytrip?.price} บาท`}
+                                </Typography>
+                            </div>
                             :
                             <div>
                                 <List
@@ -164,6 +165,13 @@ function AcceptBookingPopup(props: Props) {
                                 </List>
                             </div>
                         }
+                        {!selectRoom &&
+                            <div>
+                                <Box height={'13vh'} />
+                                <Typography variant="h3" textAlign={'center'}>
+                                    {`ใช่หรือไม่`}
+                                </Typography>
+                            </div>}
                     </Typography>
                     <Box
                         sx={{
