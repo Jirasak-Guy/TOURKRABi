@@ -2,10 +2,13 @@ import { Box, Typography, TextField, Button, Grid, Rating } from '@mui/material'
 import Review from "../models/Reviews";
 import Tour from "../models/Tours";
 import Repo from '../repositories';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAuthContext } from "../context/AuthContext";
 import Avatar from "./avatar";
 import StarRating from "./star";
+import Reviewdata from "../models/Reviewdata";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 
 interface Prop {
@@ -13,9 +16,11 @@ interface Prop {
 }
 
 function ReviewCard(props: Prop) {
-
+    const { user } = useAuthContext()
+    const navigate = useNavigate();
     const [review, setReview] = useState<Tour>();
     const [rating, setRating] = useState(0);
+    const reviewRef = useRef<HTMLInputElement>(null)
     const id = props.tour.id.toString();
     const fetchReview = async () => {
         if (props) {
@@ -25,13 +30,36 @@ function ReviewCard(props: Prop) {
             }
         }
     }
+    const handleReview = async () => {
+        if (!user) {
+            alert('Please log in to submit a review.');
+        } else {
+            const newReview: Reviewdata = {
+                data:{
+                    rating: rating,
+                    comment: reviewRef.current?.value,
+                    tour: {
+                            id: id
+                    },
+                    author: {
+                            id: user?.id.toString()
+                    }
+                    }
+            }
+            await Repo.ReviewRepo.createReview(newReview)
+        }
+    }
+
+
+
     useEffect(() => {
         fetchReview();
     }, []);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('Rating:', rating);
+        handleReview()
+        fetchReview();
     };
 
     return (
@@ -87,7 +115,7 @@ function ReviewCard(props: Prop) {
                 />
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={9}>
-                        <TextField label="Enter your review" fullWidth />
+                        <TextField label="Enter your review" fullWidth inputRef={reviewRef}/>
                     </Grid>
                     <Grid item xs={3}>
                         <Button variant="contained" color="primary" type="submit">Submit</Button>
