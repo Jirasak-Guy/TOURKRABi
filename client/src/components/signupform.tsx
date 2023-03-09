@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { API } from "../constant";
+import { useEffect } from 'react';
 
 import './signupform.css';
 
@@ -14,6 +15,21 @@ const initialUser = { username: "", email: "", password: "" };
 function SignupPopup(props: SignupPopupProps) {
 
     const [userInfo, setUserInfo] = useState(initialUser);
+    const [windowwidth, setWindowwidth] = useState(window.innerWidth);
+
+    const isPC = (windowwidth >= 830) ? true : false
+
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowwidth(window.innerWidth);
+        }
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = target;
@@ -94,7 +110,7 @@ function SignupPopup(props: SignupPopupProps) {
     return (
         <div className="popup-layout-sigup">
             <div className="popup-overlay-sigup" onClick={props.onClose} />
-            <div className="image-sigup" />
+            {isPC &&<div className="image-sigup" />}
             <div className="popup-container-sigup">
                 <div id="form" className="sigup-form">
                     <h2>สมัครสมาชิก</h2>

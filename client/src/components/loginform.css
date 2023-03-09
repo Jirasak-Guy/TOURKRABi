@@ -104,3 +104,20 @@ a {
 p {
     font-size: 15px;
 }
+
+@media screen and (max-width: 820px) {
+    .popup-container-login {
+        height: 50vh;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .popup-container-login {
+        height: 60vh;
+        width: 45vh;
+    }
+
+    p {
+        font-size: 10px;
+    }
+}
