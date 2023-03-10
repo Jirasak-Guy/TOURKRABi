@@ -10,9 +10,7 @@ function StarRating({ rating }: StarRatingProps) {
   for (let i = 0; i < 5; i++) {
     if (i < rating) {
       stars.push(<Star key={i} color="primary" />);
-    } else {
-      stars.push(<StarBorder key={i} color="primary" />);
-    }
+    } 
   }
 
   return <>{stars}</>;
