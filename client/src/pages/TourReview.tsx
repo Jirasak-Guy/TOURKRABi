@@ -9,12 +9,18 @@ import ReviewCard from "../components/reviewcard";
 import './TourReview.css'
 import AcceptBookingPopup from '../components/AcceptBookingPopup';
 import ReactMarkdown from 'react-markdown';
+import LoginPopup from "../components/loginform";
+import SignupPopup from "../components/signupform";
+import { useAuthContext } from "../context/AuthContext";
 
 function Tourreview() {
+    const { user } = useAuthContext();
     const url = useParams()
     const id = url.id
     const [data, setData] = useState<Tour>();
     const [acceptBooking, setacceptBooking] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showSignup, setShowSignup] = useState(false);
     const navigate = useNavigate();
 
     const fetchTourData = async () => {
@@ -35,8 +41,39 @@ function Tourreview() {
     }, []);
 
     const handleBookingClick = () => {
-        setacceptBooking(!acceptBooking);
+        if (user) {
+            setacceptBooking(!acceptBooking);
+        }else{
+            handleLoginClick()
+        }
+        
     };
+
+    const handleLoginClick = () => {
+        setShowLogin(true);
+    };
+
+    const handleCloseLogin = () => {
+        setShowLogin(false);
+    };
+
+    const handleSignupClick = () => {
+        setShowSignup(true);
+    };
+
+    const handleCloseSignup = () => {
+        setShowSignup(false);
+    };
+
+    const handleSignupLinkClick = () => {
+        setShowLogin(false);
+        setShowSignup(true);
+    }
+
+    const handleLoginLinkClick = () => {
+        setShowLogin(true);
+        setShowSignup(false);
+    }
 
     return (
         <Box>
@@ -189,6 +226,8 @@ function Tourreview() {
                     <img src="../people.png" width={'30'} height={'30'} alt="not found" />
                 </Button>
                 {acceptBooking && data && <AcceptBookingPopup onClose={handleBookingClick} data={data} />}
+                {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
             </Box>
         </Box >
     )
