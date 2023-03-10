@@ -219,7 +219,7 @@ function TourAppBar() {
                 onClick={handleOpenMenu}
                 color="inherit"
               >
-                <Avatar src={conf.apiPrefix + user?.Avatar.url} />
+                <Avatar src={conf.apiPrefix + user?.Avatar?.url} />
               </IconButton>
             </Box>
           ) : (
