@@ -9,12 +9,18 @@ import ReviewCard from "../components/reviewcard";
 import './TourReview.css'
 import AcceptBookingPopup from '../components/AcceptBookingPopup';
 import ReactMarkdown from 'react-markdown';
+import LoginPopup from "../components/loginform";
+import SignupPopup from "../components/signupform";
+import { useAuthContext } from "../context/AuthContext";
 
 function Tourreview() {
+    const { user } = useAuthContext();
     const url = useParams()
     const id = url.id
     const [data, setData] = useState<Tour>();
     const [acceptBooking, setacceptBooking] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showSignup, setShowSignup] = useState(false);
     const navigate = useNavigate();
 
     const fetchTourData = async () => {
@@ -35,8 +41,39 @@ function Tourreview() {
     }, []);
 
     const handleBookingClick = () => {
-        setacceptBooking(!acceptBooking);
+        if (user) {
+            setacceptBooking(!acceptBooking);
+        }else{
+            handleLoginClick()
+        }
+        
     };
+
+    const handleLoginClick = () => {
+        setShowLogin(true);
+    };
+
+    const handleCloseLogin = () => {
+        setShowLogin(false);
+    };
+
+    const handleSignupClick = () => {
+        setShowSignup(true);
+    };
+
+    const handleCloseSignup = () => {
+        setShowSignup(false);
+    };
+
+    const handleSignupLinkClick = () => {
+        setShowLogin(false);
+        setShowSignup(true);
+    }
+
+    const handleLoginLinkClick = () => {
+        setShowLogin(true);
+        setShowSignup(false);
+    }
 
     return (
         <Box>
@@ -54,25 +91,24 @@ function Tourreview() {
                 <Typography className="detailhead"
                     sx={{
                         fontSize: '35px',
-                        marginLeft: '15px',
-                        marginTop: '30px',
-                        marginRight: '10px',
+                        marginLeft: '2vw',
+                        marginTop: '2.5vh',
                     }}
                 >
                     รายละเอียด
                 </Typography>
             </Box>
-            <Box display={'flex'} justifyContent={'center'}>
+            <Box className="detail" display={'flex'} justifyContent={'center'}>
                 <Typography
-                    className="detail"
                     sx={{
-                        marginTop: '30px',
                         textAlign: 'justify',
+                        display:'inline-block',
+                        displayPrint:'block',
                     }}>
                     {data?.attributes.tour_detial ?
-                        <ReactMarkdown>
+                        <Box marginX={'2.5%'} width={'95%'}><ReactMarkdown>
                             {data.attributes.tour_detial}
-                        </ReactMarkdown>
+                        </ReactMarkdown></Box>
                         :
                         <h1>No detail</h1>
                     }
@@ -82,33 +118,31 @@ function Tourreview() {
                 <Typography
                     className="detailhead"
                     sx={{
-                        paddingLeft: '50px',
-                        paddingRight: '50px',
+                        paddingLeft: '2.5vw',
+                        paddingRight: '2.5vw',
                         fontSize: '35px',
-                        marginTop: '30px',
-                        marginLeft: '15px',
+                        marginTop: '3vh',
+                        marginLeft: '2.5vw',
                     }}
                 >
                     ราคา
                 </Typography>
             </Box>
             <Box>
-                <Typography variant="body1">
+                <Typography>
                     {(data?.attributes.price_onedaytrip) ?
                         <Typography
                             className="price"
                             sx={{
                                 fontSize: '35px',
-                                marginLeft: '3%',
-                                marginRight: '10px',
+                                marginLeft: '2.5vw',
+                                marginRight: '2.5vw',
                             }}>{data?.attributes.price_onedaytrip.price} บาท </Typography>
                         :
                         <Box sx={{
                             padding: '5px',
-                            fontSize: '35px',
                             display: 'flex',
                             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-                            textAlign: 'justify',
                             maxWidth: '90%',
                             margin: 'auto',
                         }}>
@@ -146,11 +180,11 @@ function Tourreview() {
                 <Typography className="detailhead"
                     sx={{
                         fontSize: '35px',
-                        marginTop: '30px',
-                        marginLeft: '15px',
-                        paddingLeft: '50px',
-                        paddingRight: '50px',
-                        marginBottom: '30px'
+                        marginTop: '3.5vh',
+                        marginLeft: '2.5vw',
+                        paddingLeft: '2.5vw',
+                        paddingRight: '2.5vw',
+                        marginBottom: '2vh'
                     }}
                 >รีวิว</Typography>
             </Box>
@@ -192,6 +226,8 @@ function Tourreview() {
                     <img src="../people.png" width={'30'} height={'30'} alt="not found" />
                 </Button>
                 {acceptBooking && data && <AcceptBookingPopup onClose={handleBookingClick} data={data} />}
+                {showLogin && <LoginPopup onClose={handleCloseLogin} onSignupLinkClick={handleSignupLinkClick} />}
+                {showSignup && <SignupPopup onClose={handleCloseSignup} onLoginLinkClick={handleLoginLinkClick} />}
             </Box>
         </Box >
     )

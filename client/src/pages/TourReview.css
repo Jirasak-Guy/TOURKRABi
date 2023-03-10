@@ -7,8 +7,12 @@
 }
 
 .detail {
-    padding: 15px;
+    margin-left: 2.75vw;
+    margin-right: 2.75vw;
+    margin-top: 3vh;
+    padding: 1%;
     width: 95%;
+    transition: all;
     border-radius: 20px;
     background-color: white;
     display: inline-block;
